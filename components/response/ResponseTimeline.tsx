@@ -75,7 +75,7 @@ export function ResponseTimeline({ alertId }: { alertId: string }) {
                   <div className="w-[calc(100%-2rem)] md:w-[calc(50%-1.5rem)] p-3.5 rounded-2xl border border-slate-200 bg-white shadow-xs">
                     <div className="flex justify-between items-center mb-1">
                       <span className="font-bold text-xs text-slate-900">{event.title}</span>
-                      <span className="text-[10px] text-slate-400 font-mono font-medium">{new Date(event.timestamp).toLocaleTimeString()}</span>
+                      <span suppressHydrationWarning className="text-[10px] text-slate-400 font-mono font-medium">{new Date(event.timestamp).toLocaleTimeString()}</span>
                     </div>
                     <div className="text-xs text-slate-600 leading-relaxed font-medium">{event.description}</div>
                     {event.isSimulated && (

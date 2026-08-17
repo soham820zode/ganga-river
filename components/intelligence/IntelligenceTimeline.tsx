@@ -41,7 +41,7 @@ export function IntelligenceTimeline({ insights }: IntelligenceTimelineProps) {
                     <span className="text-sm font-bold text-slate-900">
                       {insight.title}
                     </span>
-                    <span className="text-xs text-slate-400 font-mono font-medium">
+                    <span suppressHydrationWarning className="text-xs text-slate-400 font-mono font-medium">
                       {new Date(insight.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     </span>
                   </div>

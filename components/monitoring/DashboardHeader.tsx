@@ -6,6 +6,12 @@ import { useSimulation } from '../../hooks/useSimulation';
 export function DashboardHeader() {
   const { snapshot } = useSimulation();
 
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <div className="w-full flex flex-col md:flex-row justify-between items-start md:items-center py-6 px-4 md:px-8 border-b border-slate-200/80 backdrop-blur-xl bg-white/70 sticky top-16 z-20">
       <div>
@@ -25,8 +31,8 @@ export function DashboardHeader() {
         <div className="text-[9px] font-bold tracking-[0.2em] text-slate-400 uppercase mb-0.5 font-mono">
           Simulated Data Stream
         </div>
-        <div className="text-xs text-slate-600 font-mono font-medium">
-          Last update: {new Date(snapshot.lastUpdateMs).toLocaleTimeString()}
+        <div suppressHydrationWarning className="text-xs text-slate-600 font-mono font-medium">
+          Last update: {mounted ? new Date(snapshot.lastUpdateMs).toLocaleTimeString() : 'Live'}
         </div>
       </div>
     </div>

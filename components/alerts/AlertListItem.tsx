@@ -50,7 +50,7 @@ export function AlertListItem({ alert }: { alert: Alert }) {
             <span className="text-[10px] font-mono text-slate-600 bg-slate-100 border border-slate-200 px-2.5 py-1 rounded-lg font-bold">
               {alert.stationId}
             </span>
-            <span className="text-[9px] uppercase font-bold tracking-[0.15em] text-slate-400 ml-auto flex items-center gap-1 font-mono">
+            <span suppressHydrationWarning className="text-[9px] uppercase font-bold tracking-[0.15em] text-slate-400 ml-auto flex items-center gap-1 font-mono">
                <Clock className="w-3 h-3" /> {new Date(alert.updatedAt).toLocaleTimeString()}
             </span>
           </div>

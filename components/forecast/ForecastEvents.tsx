@@ -22,7 +22,7 @@ export function ForecastEvents() {
           {forecast.thresholdCrossings.map((cross, i) => (
              <div key={i} className="flex justify-between items-center bg-white p-3.5 rounded-xl text-sm border border-rose-200 shadow-xs">
                <div>
-                 <span className="font-mono text-slate-500 font-bold mr-4">
+                 <span suppressHydrationWarning className="font-mono text-slate-500 font-bold mr-4">
                    {new Date(cross.timestamp).toLocaleString([], { weekday: 'short', hour: '2-digit', minute: '2-digit' })}
                  </span>
                  <span className="text-slate-800 font-semibold">

@@ -23,7 +23,7 @@ export default function SimulationPage() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 text-sm">
           <div className="p-4 bg-surface rounded border border-border/50">Status: <span className="font-mono text-accent">{snapshot.status}</span></div>
           <div className="p-4 bg-surface rounded border border-border/50">Scenario: <span className="font-mono text-accent">{snapshot.activeScenario}</span></div>
-          <div className="p-4 bg-surface rounded border border-border/50">Last Update: <span className="font-mono">{new Date(snapshot.lastUpdateMs).toLocaleTimeString()}</span></div>
+          <div className="p-4 bg-surface rounded border border-border/50">Last Update: <span suppressHydrationWarning className="font-mono">{new Date(snapshot.lastUpdateMs).toLocaleTimeString()}</span></div>
           <div className="p-4 bg-surface rounded border border-border/50">Stations: <span className="font-mono">{snapshot.networkSummary.stationCount}</span></div>
         </div>
 

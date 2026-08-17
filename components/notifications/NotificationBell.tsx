@@ -75,7 +75,7 @@ export function NotificationBell() {
                       }`}>
                         {n.severity}
                       </span>
-                      <span className="text-[10px] text-text-muted flex items-center gap-1">
+                      <span suppressHydrationWarning className="text-[10px] text-text-muted flex items-center gap-1">
                         <Clock className="w-3 h-3" /> {new Date(n.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                       </span>
                     </div>
