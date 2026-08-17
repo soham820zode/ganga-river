@@ -4,6 +4,7 @@ import "./globals.css";
 import { AlertToastManager } from '../components/alerts/AlertToastManager';
 import { DemoShell } from '../components/demo/DemoShell';
 import { AetherisRiverCanvas } from '../components/aetheris/AetherisRiverCanvas';
+import { AppIntroAnimation } from '../components/ui/AppIntroAnimation';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,6 +28,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-grid-texture">
+        {/* Startup Intro Animation */}
+        <AppIntroAnimation />
+
         {/* 3D River Canvas — fixed behind everything */}
         <AetherisRiverCanvas />
 

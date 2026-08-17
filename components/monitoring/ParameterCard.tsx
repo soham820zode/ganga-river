@@ -40,35 +40,51 @@ export function ParameterCard({ parameter, value, status, trend, lastUpdated, is
   return (
     <button 
       onClick={() => setSelectedParameter(parameter)}
-      className={`w-full text-left relative overflow-hidden rounded-2xl border p-5 transition-all duration-300 ${
+      className={`w-full text-left relative overflow-hidden rounded-3xl border p-5 transition-all duration-300 ${
         isSelected 
-          ? `bg-white border-sky-500 shadow-lg shadow-sky-500/10 ring-2 ring-sky-500/20` 
+          ? `bg-white shadow-lg ring-2` 
           : 'bg-white hover:bg-slate-50/80 border-slate-200/90 shadow-sm hover:shadow-md'
       }`}
+      style={{
+        borderColor: isSelected ? meta.accentHex : undefined,
+        boxShadow: isSelected ? `0 10px 25px -5px ${meta.accentHex}20` : undefined,
+        // @ts-expect-error CSS custom property for ring color
+        '--tw-ring-color': `${meta.accentHex}40`,
+      }}
     >
-      <div className="flex justify-between items-start mb-4">
-        <div>
-          <h3 className="text-sm font-bold text-slate-900 tracking-wider">{meta.key}</h3>
-          <p className="text-[9px] text-slate-500 uppercase mt-1 tracking-[0.15em] font-mono font-medium">{isStationSpecific ? 'Station Value' : 'Network Avg'}</p>
+      {/* Top feature color accent line */}
+      <div 
+        className="absolute top-0 left-0 right-0 h-1.5 transition-opacity" 
+        style={{ backgroundColor: meta.accentHex, opacity: isSelected ? 1 : 0.4 }} 
+      />
+
+      <div className="flex justify-between items-start mb-4 pt-1">
+        <div className="flex items-center gap-2.5">
+          <div className={`w-8 h-8 rounded-xl flex items-center justify-center font-bold text-xs ${meta.lightBg} ${meta.lightText} border ${meta.lightBorder}`}>
+            {meta.key.slice(0, 2).toUpperCase()}
+          </div>
+          <div>
+            <h3 className="text-sm font-bold text-slate-900 tracking-tight">{meta.displayName}</h3>
+            <p className="text-[9px] text-slate-500 uppercase tracking-[0.15em] font-mono font-medium">{isStationSpecific ? 'Station Value' : 'Corridor Avg'}</p>
+          </div>
         </div>
-        <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[9px] font-bold uppercase tracking-[0.15em] border ${statusColor}`}>
+        <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-[9px] font-bold uppercase tracking-[0.15em] border ${statusColor}`}>
           {StatusIcon && <StatusIcon className="w-3 h-3" />}
           <span>{status}</span>
-          <span className="sr-only">Status: {status}</span>
         </div>
       </div>
 
       <div className="flex items-baseline gap-2 mb-4">
         <span className={`text-3xl font-mono font-bold ${valueColor}`}>{formatValue(value, meta.decimals)}</span>
-        <span className="text-sm text-text-secondary/70">{meta.unit}</span>
+        <span className="text-sm text-slate-500 font-semibold">{meta.unit}</span>
       </div>
 
-      <div className="flex items-center justify-between text-xs">
-        <div className="flex items-center gap-1 text-text-secondary">
-          <TrendIcon className="w-4 h-4" />
-          <span className="capitalize text-[10px] tracking-wider">{trend.toLowerCase()}</span>
+      <div className="flex items-center justify-between text-xs pt-3 border-t border-slate-100">
+        <div className="flex items-center gap-1.5 text-slate-600 font-medium">
+          <TrendIcon className="w-4 h-4" style={{ color: meta.accentHex }} />
+          <span className="capitalize text-[10px] tracking-wider font-semibold">{trend.toLowerCase()} trend</span>
         </div>
-        <div className="text-text-muted font-mono text-[10px]">{formatTimeAgo(lastUpdated)}</div>
+        <div className="text-slate-400 font-mono text-[10px] font-medium">{formatTimeAgo(lastUpdated)}</div>
       </div>
     </button>
   );

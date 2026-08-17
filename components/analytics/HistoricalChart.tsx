@@ -28,8 +28,10 @@ export function HistoricalChart() {
     
     if (analyticsMode === 'STATION') {
       const raw = getHistoryForRange(history, selectedStationId, selectedParameter, analyticsTimeRange);
-      return downsampleTimeSeries(raw, 200).map(d => ({
+      return downsampleTimeSeries(raw, 200).map((d, index) => ({
+        uniqueKey: `pt-${d.t}-${index}`,
         time: new Date(d.t).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        fullTime: new Date(d.t).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }),
         timestamp: d.t,
         value: d.v
       }));
@@ -41,9 +43,11 @@ export function HistoricalChart() {
       const rawRef = getHistoryForRange(history, allStations[0], selectedParameter, analyticsTimeRange);
       const downsampledRef = downsampleTimeSeries(rawRef, 200);
       
-      return downsampledRef.map((refPoint) => {
+      return downsampledRef.map((refPoint, index) => {
         const row: Record<string, string | number> = { 
+          uniqueKey: `ref-${refPoint.t}-${index}`,
           time: new Date(refPoint.t).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          fullTime: new Date(refPoint.t).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }),
           timestamp: refPoint.t 
         };
         let sum = 0;
@@ -72,6 +76,7 @@ export function HistoricalChart() {
   }
 
   const meta = PARAMETER_METADATA[selectedParameter];
+  const featureColor = meta.color || '#0284c7';
   
   // Parse reference threshold for ReferenceLine
   let refVal: number | undefined;
@@ -81,7 +86,7 @@ export function HistoricalChart() {
     refVal = parseFloat(meta.reference.replace(/[^0-9.]/g, ''));
   }
 
-  const colors = ['#0284c7', '#e11d48', '#8b5cf6', '#059669', '#d97706'];
+  const stationColors = ['#0284c7', '#059669', '#7c3aed', '#ea580c', '#e11d48'];
 
   return (
     <div className="w-full h-[500px] bg-white border-y border-slate-200 p-4 pt-8 shadow-xs">
@@ -93,7 +98,7 @@ export function HistoricalChart() {
             stroke="#94a3b8" 
             fontSize={10} 
             tickMargin={10} 
-            minTickGap={30}
+            minTickGap={35}
           />
           <YAxis 
             stroke="#94a3b8" 
@@ -102,14 +107,17 @@ export function HistoricalChart() {
             tickFormatter={(v) => formatValue(v, meta.decimals)}
           />
           <Tooltip 
-            content={({ active, payload, label }) => {
+            cursor={{ stroke: featureColor, strokeWidth: 1.5, strokeDasharray: '3 3' }}
+            filterNull={true}
+            content={({ active, payload }) => {
               if (active && payload && payload.length) {
+                const item = payload[0].payload;
                 return (
-                  <div className="bg-white/95 backdrop-blur border border-slate-200 rounded-2xl p-4 shadow-xl">
-                    <p className="text-slate-400 text-xs mb-2 font-mono font-bold">{label}</p>
+                  <div className="bg-white/95 backdrop-blur border border-slate-200 rounded-2xl p-4 shadow-xl min-w-[220px]">
+                    <p className="text-slate-400 text-xs mb-2 font-mono font-bold">{item.fullTime || item.time}</p>
                     {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                     {payload.map((entry: any, index: number) => (
-                      <div key={index} className="flex items-center gap-3 text-sm">
+                      <div key={index} className="flex items-center gap-3 text-sm py-0.5">
                         <span style={{ color: entry.color }} className="font-bold flex-1">{entry.name}</span>
                         <span className="font-mono font-bold text-slate-900">
                           {formatValue(entry.value, meta.decimals)}
@@ -127,10 +135,10 @@ export function HistoricalChart() {
           {refVal !== undefined && !isNaN(refVal) && (
             <ReferenceLine 
               y={refVal} 
-              stroke="#d97706" 
+              stroke="#e11d48" 
               strokeDasharray="4 4" 
               opacity={0.7}
-              label={{ position: 'insideTopLeft', value: 'REFERENCE BENCHMARK', fill: '#d97706', fontSize: 10, fontWeight: 'bold' }}
+              label={{ position: 'insideTopLeft', value: `BENCHMARK (${meta.reference})`, fill: '#e11d48', fontSize: 10, fontWeight: 'bold' }}
             />
           )}
 
@@ -138,11 +146,11 @@ export function HistoricalChart() {
             <Line 
               type="monotone" 
               dataKey="value" 
-              name={selectedStationId || 'Value'}
-              stroke="#0284c7" 
-              strokeWidth={2.5}
+              name={selectedStationId || 'Measured'}
+              stroke={featureColor} 
+              strokeWidth={3}
               dot={false}
-              activeDot={{ r: 6, fill: "#0284c7", stroke: "#ffffff", strokeWidth: 2 }}
+              activeDot={{ r: 6, fill: featureColor, stroke: "#ffffff", strokeWidth: 2.5 }}
               isAnimationActive={false}
             />
           ) : (
@@ -153,9 +161,9 @@ export function HistoricalChart() {
                   type="monotone" 
                   dataKey={stId} 
                   name={stId}
-                  stroke={colors[i % colors.length]} 
+                  stroke={stationColors[i % stationColors.length]} 
                   strokeWidth={1.5}
-                  opacity={0.35}
+                  opacity={0.4}
                   dot={false}
                   isAnimationActive={false}
                 />
@@ -164,10 +172,10 @@ export function HistoricalChart() {
                 type="monotone" 
                 dataKey="Average" 
                 name="Network Average"
-                stroke="#0284c7" 
-                strokeWidth={3}
+                stroke={featureColor} 
+                strokeWidth={3.5}
                 dot={false}
-                activeDot={{ r: 6, fill: "#0284c7", stroke: "#ffffff", strokeWidth: 2 }}
+                activeDot={{ r: 6, fill: featureColor, stroke: "#ffffff", strokeWidth: 2.5 }}
                 isAnimationActive={false}
               />
             </>

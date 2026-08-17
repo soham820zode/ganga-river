@@ -7,29 +7,40 @@ import { useJalPulseStore } from '../../store/useJalPulseStore';
 import { MOCK_STATIONS } from '../../config/stations';
 import { MapControls } from './MapControls';
 
-// Custom div icon mimicking the glowing pulses
+// Custom div icon mimicking glowing luxury pins with feature status
 const createCustomIcon = (status: string, isSelected: boolean) => {
-  let color = '#00e5ff';
-  if (status === 'WARNING') color = '#f59e0b';
-  if (status === 'CRITICAL') color = '#ef4444';
-  if (status === 'OFFLINE') color = '#64748b';
+  let color = '#0284c7';
+  let ringColor = 'rgba(2, 132, 199, 0.4)';
+  if (status === 'ONLINE' || status === 'NORMAL') {
+    color = '#059669';
+    ringColor = 'rgba(5, 150, 105, 0.35)';
+  } else if (status === 'WARNING') {
+    color = '#d97706';
+    ringColor = 'rgba(217, 119, 6, 0.35)';
+  } else if (status === 'CRITICAL') {
+    color = '#e11d48';
+    ringColor = 'rgba(225, 29, 72, 0.4)';
+  } else if (status === 'OFFLINE') {
+    color = '#64748b';
+    ringColor = 'rgba(100, 116, 139, 0.2)';
+  }
 
-  const glowSize = isSelected ? 'w-8 h-8' : 'w-6 h-6';
-  const pulseAnim = status !== 'OFFLINE' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches 
-    ? 'animate-pulse' : '';
+  const glowSize = isSelected ? 'w-9 h-9' : 'w-7 h-7';
+  const pulseAnim = status !== 'OFFLINE' ? 'animate-pulse' : '';
 
   const html = `
-    <div class="relative flex items-center justify-center ${glowSize}">
-      <div class="absolute inset-0 rounded-full opacity-40 ${pulseAnim}" style="background-color: ${color}"></div>
-      <div class="absolute inset-2 rounded-full border border-white/20" style="background-color: ${color}"></div>
+    <div class="relative flex items-center justify-center ${glowSize} cursor-pointer group">
+      <div class="absolute inset-0 rounded-full ${pulseAnim}" style="background-color: ${ringColor}"></div>
+      <div class="absolute inset-1.5 rounded-full bg-white shadow-md border-2" style="border-color: ${color}"></div>
+      <div class="w-2.5 h-2.5 rounded-full z-10" style="background-color: ${color}"></div>
     </div>
   `;
 
   return L.divIcon({
     html,
     className: 'custom-leaflet-icon',
-    iconSize: isSelected ? [32, 32] : [24, 24],
-    iconAnchor: isSelected ? [16, 16] : [12, 12],
+    iconSize: isSelected ? [36, 36] : [28, 28],
+    iconAnchor: isSelected ? [18, 18] : [14, 14],
   });
 };
 
@@ -70,15 +81,15 @@ export default function MapClient() {
       <MapContainer 
         center={[27.5, 80.5]} // Center of Ganga basin
         zoom={6} 
-        style={{ width: '100%', height: '100%', background: '#05080D' }}
+        style={{ width: '100%', height: '100%', background: '#f8fafc' }}
         zoomControl={false}
       >
         <TileLayer
           attribution='&copy; <a href="https://carto.com/">CARTO</a>'
-          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+          url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
         />
         
-        {/* Simple mock river line */}
+        {/* Crystal azure river path vector */}
         <GeoJSON 
           data={{
             type: "Feature",
@@ -96,9 +107,9 @@ export default function MapClient() {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
           } as any}
           style={{
-            color: '#00e5ff',
-            weight: 3,
-            opacity: 0.6,
+            color: '#0284c7',
+            weight: 4,
+            opacity: 0.85,
             lineCap: 'round',
             lineJoin: 'round',
             className: 'river-glow-path'

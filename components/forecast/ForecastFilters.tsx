@@ -44,20 +44,25 @@ export function ForecastFilters() {
         </div>
 
         {/* Parameter */}
-        <div className="flex bg-slate-100/80 rounded-xl p-1 border border-slate-200 overflow-x-auto hide-scrollbar gap-1">
-          {parameters.map(p => (
-            <button
-              key={p}
-              onClick={() => setSelectedParameter(p)}
-              className={`px-3.5 py-1.5 text-xs font-bold rounded-lg transition-all whitespace-nowrap ${
-                selectedParameter === p 
-                  ? 'bg-white text-slate-900 shadow-sm border border-slate-200' 
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/50 border border-transparent'
-              }`}
-            >
-              {PARAMETER_METADATA[p].displayName}
-            </button>
-          ))}
+        <div className="flex bg-slate-100/80 rounded-2xl p-1 border border-slate-200 overflow-x-auto hide-scrollbar gap-1">
+          {parameters.map(p => {
+            const meta = PARAMETER_METADATA[p];
+            const isSelected = selectedParameter === p;
+            return (
+              <button
+                key={p}
+                onClick={() => setSelectedParameter(p)}
+                className={`px-3.5 py-1.5 text-xs font-bold rounded-xl transition-all whitespace-nowrap flex items-center gap-1.5 ${
+                  isSelected 
+                    ? `bg-white shadow-sm border ${meta.lightBorder} ${meta.lightText}` 
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-white/50 border border-transparent'
+                }`}
+              >
+                <span className="w-2 h-2 rounded-full" style={{ backgroundColor: meta.accentHex }} />
+                {meta.displayName}
+              </button>
+            );
+          })}
         </div>
 
         {/* Horizon */}

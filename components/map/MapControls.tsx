@@ -20,31 +20,33 @@ export function MapControls() {
   };
 
   return (
-    <div className="absolute top-6 right-6 z-[400] flex flex-col gap-2">
-      <GlassPanel padding="none" className="overflow-hidden flex flex-col pointer-events-auto">
+    <div className="absolute top-6 right-6 z-[400] flex flex-col gap-2 pointer-events-auto">
+      <div className="overflow-hidden flex flex-col bg-white/95 backdrop-blur-md border border-slate-200 rounded-2xl shadow-md">
         <button 
           onClick={handleZoomIn}
-          className="p-2 hover:bg-surface-elevated transition-colors border-b border-border/50 text-text-secondary hover:text-accent"
+          className="p-2.5 hover:bg-slate-100 transition-colors border-b border-slate-100 text-slate-700 hover:text-sky-600 flex items-center justify-center"
+          title="Zoom In"
         >
           <Plus className="w-4 h-4" />
         </button>
         <button 
           onClick={handleZoomOut}
-          className="p-2 hover:bg-surface-elevated transition-colors text-text-secondary hover:text-accent"
+          className="p-2.5 hover:bg-slate-100 transition-colors text-slate-700 hover:text-sky-600 flex items-center justify-center"
+          title="Zoom Out"
         >
           <Minus className="w-4 h-4" />
         </button>
-      </GlassPanel>
+      </div>
 
-      <GlassPanel padding="none" className="mt-2 pointer-events-auto">
+      <div className="overflow-hidden bg-white/95 backdrop-blur-md border border-slate-200 rounded-2xl shadow-md">
         <button 
           onClick={handleFitNetwork}
           title="Fit Network"
-          className="p-2 hover:bg-surface-elevated transition-colors text-text-secondary hover:text-accent flex items-center justify-center"
+          className="p-2.5 hover:bg-slate-100 transition-colors text-slate-700 hover:text-sky-600 flex items-center justify-center"
         >
           <Maximize className="w-4 h-4" />
         </button>
-      </GlassPanel>
+      </div>
     </div>
   );
 }

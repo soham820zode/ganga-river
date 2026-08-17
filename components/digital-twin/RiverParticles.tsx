@@ -73,9 +73,9 @@ export function RiverParticles() {
     <instancedMesh ref={meshRef} args={[undefined, undefined, particleCount]}>
       <sphereGeometry args={[0.02, 8, 8]} />
       <meshBasicMaterial 
-        color="#00e5ff" 
+        color="#0284c7" 
         transparent 
-        opacity={0.6}
+        opacity={0.8}
         blending={THREE.AdditiveBlending}
         depthWrite={false}
       />

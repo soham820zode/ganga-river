@@ -25,9 +25,18 @@ export function StationTable() {
             <tr className="border-b border-slate-200 bg-slate-50/80 text-[11px] uppercase tracking-wider text-slate-500 font-bold">
               <th className="p-4 whitespace-nowrap">Station</th>
               <th className="p-4 whitespace-nowrap">Status</th>
-              {parameters.map(p => (
-                <th key={p} className="p-4 whitespace-nowrap">{p} <span className="lowercase text-[10px] text-slate-400 font-normal">({PARAMETER_METADATA[p].unit})</span></th>
-              ))}
+              {parameters.map(p => {
+                const meta = PARAMETER_METADATA[p];
+                return (
+                  <th key={p} className="p-4 whitespace-nowrap">
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full" style={{ backgroundColor: meta.accentHex }} />
+                      <span>{p}</span>
+                      <span className="lowercase text-[10px] text-slate-400 font-normal">({meta.unit})</span>
+                    </div>
+                  </th>
+                );
+              })}
               <th className="p-4 whitespace-nowrap">Last Update</th>
             </tr>
           </thead>
@@ -39,11 +48,11 @@ export function StationTable() {
                   key={st.id} 
                   onClick={() => setSelectedStation(isSelected ? null : st.id)}
                   className={`cursor-pointer transition-colors ${
-                    isSelected ? 'bg-sky-50/90 hover:bg-sky-100/70' : 'hover:bg-slate-50/80'
+                    isSelected ? 'bg-sky-50/90 hover:bg-sky-100/70 font-semibold' : 'hover:bg-slate-50/80'
                   }`}
                 >
                   <td className="p-4 whitespace-nowrap">
-                    <div className="font-semibold text-slate-900">{st.name}</div>
+                    <div className="font-bold text-slate-900">{st.name}</div>
                     <div className="text-xs text-slate-400 font-mono">{st.id}</div>
                   </td>
                   <td className="p-4 whitespace-nowrap">
@@ -52,11 +61,16 @@ export function StationTable() {
                   </td>
                   {parameters.map(p => {
                     const reading = st.readings[p];
+                    const meta = PARAMETER_METADATA[p];
                     if (!reading) return <td key={p} className="p-4 text-slate-400">—</td>;
                     return (
                       <td key={p} className="p-4 font-mono whitespace-nowrap">
-                        <span className={`${reading.status === 'CRITICAL' ? 'text-rose-600 font-bold' : reading.status === 'WARNING' ? 'text-amber-600 font-bold' : 'text-slate-800'}`}>
-                          {formatValue(reading.value, PARAMETER_METADATA[p].decimals)}
+                        <span className={`px-2 py-0.5 rounded-md font-bold ${
+                          reading.status === 'CRITICAL' ? 'text-rose-700 bg-rose-50 border border-rose-200' : 
+                          reading.status === 'WARNING' ? 'text-amber-700 bg-amber-50 border border-amber-200' : 
+                          'text-slate-800'
+                        }`}>
+                          {formatValue(reading.value, meta.decimals)}
                         </span>
                       </td>
                     );

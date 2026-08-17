@@ -42,22 +42,22 @@ export function RiverPath() {
         <tubeGeometry args={[curve, 100, 0.15, 8, false]} />
         <meshStandardMaterial 
           ref={materialRef}
-          color="#00e5ff" 
-          emissive="#00e5ff"
-          emissiveIntensity={0.5}
+          color="#0284c7" 
+          emissive="#0369a1"
+          emissiveIntensity={0.6}
           transparent
-          opacity={0.6}
-          roughness={0.2}
-          metalness={0.8}
+          opacity={0.85}
+          roughness={0.15}
+          metalness={0.6}
         />
       </mesh>
       {/* Outer glow tube */}
       <mesh>
-        <tubeGeometry args={[curve, 100, 0.3, 8, false]} />
+        <tubeGeometry args={[curve, 100, 0.28, 8, false]} />
         <meshBasicMaterial 
-          color="#00e5ff"
+          color="#38bdf8"
           transparent
-          opacity={0.1}
+          opacity={0.25}
           depthWrite={false}
           blending={THREE.AdditiveBlending}
         />

@@ -24,9 +24,11 @@ export function ForecastChart() {
     const combined: Record<string, string | number | boolean>[] = [];
     
     // Historical points (downsampled again just for display limits)
-    forecast.historicalPoints.slice(-100).forEach(pt => {
+    forecast.historicalPoints.slice(-100).forEach((pt, index) => {
       combined.push({
+        uniqueKey: `hist-${pt.timestamp}-${index}`,
         time: new Date(pt.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        fullTime: new Date(pt.timestamp).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }),
         timestamp: pt.timestamp,
         history: pt.value,
         isForecast: false
@@ -42,9 +44,11 @@ export function ForecastChart() {
     }
 
     // Forecast points
-    forecast.forecastPoints.forEach(pt => {
+    forecast.forecastPoints.forEach((pt, index) => {
       combined.push({
+        uniqueKey: `fc-${pt.timestamp}-${index}`,
         time: new Date(pt.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        fullTime: new Date(pt.timestamp).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }),
         timestamp: pt.timestamp,
         forecast: pt.value,
         lower: pt.lowerBound,
@@ -66,6 +70,7 @@ export function ForecastChart() {
   }
 
   const meta = PARAMETER_METADATA[selectedParameter];
+  const featureColor = meta.color || '#0284c7';
 
   return (
     <div className="w-full h-[500px] bg-white border-y border-slate-200 p-4 pt-8 relative shadow-xs">
@@ -86,33 +91,36 @@ export function ForecastChart() {
             tickFormatter={(v) => formatValue(v, meta.decimals)}
           />
           <Tooltip 
-            content={({ active, payload, label }) => {
+            cursor={{ stroke: featureColor, strokeWidth: 1.5, strokeDasharray: '3 3' }}
+            filterNull={true}
+            content={({ active, payload }) => {
               if (active && payload && payload.length) {
-                const isF = payload[0].payload.isForecast;
+                const item = payload[0].payload;
+                const isF = item.isForecast;
                 return (
-                  <div className="bg-white/95 backdrop-blur border border-slate-200 rounded-2xl p-4 shadow-xl min-w-[200px]">
+                  <div className="bg-white/95 backdrop-blur border border-slate-200 rounded-2xl p-4 shadow-xl min-w-[220px]">
                     <div className="flex justify-between items-center mb-2">
-                       <p className="text-slate-400 text-xs font-mono font-bold">{label}</p>
-                       <span className={`text-[9px] font-bold tracking-widest px-2 py-0.5 rounded-lg uppercase ${isF ? 'bg-amber-50 text-amber-700 border border-amber-200' : 'bg-sky-50 text-sky-700 border border-sky-200'}`}>
-                         {isF ? 'FORECAST' : 'HISTORICAL'}
+                       <p className="text-slate-400 text-xs font-mono font-bold">{item.fullTime || item.time}</p>
+                       <span className={`text-[9px] font-bold tracking-widest px-2 py-0.5 rounded-lg uppercase ${isF ? 'bg-amber-50 text-amber-700 border border-amber-200' : `${meta.lightBg} ${meta.lightText} border ${meta.lightBorder}`}`}>
+                         {isF ? '48H FORECAST' : 'TELEMETRY'}
                        </span>
                     </div>
                     {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                     {payload.map((entry: any, index: number) => {
                       if (entry.dataKey === 'lower' || entry.dataKey === 'upper') return null;
                       return (
-                        <div key={index} className="flex items-center gap-3 text-sm">
+                        <div key={index} className="flex items-center gap-3 text-sm py-0.5">
                           <span style={{ color: entry.color }} className="font-bold flex-1">{entry.name}</span>
                           <span className="font-mono font-bold text-slate-900">
                             {formatValue(entry.value, meta.decimals)}
                             <span className="text-xs text-slate-500 ml-1">{meta.unit}</span>
                           </span>
                         </div>
-                      )
+                      );
                     })}
-                    {isF && payload[0].payload.lower !== undefined && (
+                    {isF && item.lower !== undefined && (
                        <div className="mt-2 pt-2 border-t border-slate-100 text-xs text-slate-500 font-mono font-medium">
-                         Range: {formatValue(payload[0].payload.lower, meta.decimals)} – {formatValue(payload[0].payload.upper, meta.decimals)}
+                         95% Band: {formatValue(item.lower, meta.decimals)} – {formatValue(item.upper, meta.decimals)} {meta.unit}
                        </div>
                     )}
                   </div>
@@ -127,8 +135,8 @@ export function ForecastChart() {
               y={forecast.referenceThreshold} 
               stroke="#e11d48" 
               strokeDasharray="4 4" 
-              opacity={0.6}
-              label={{ position: 'insideTopLeft', value: 'REFERENCE THRESHOLD', fill: '#e11d48', fontSize: 10, fontWeight: 'bold' }}
+              opacity={0.7}
+              label={{ position: 'insideTopLeft', value: `REFERENCE (${meta.reference})`, fill: '#e11d48', fontSize: 10, fontWeight: 'bold' }}
             />
           )}
 
@@ -137,8 +145,8 @@ export function ForecastChart() {
             type="monotone" 
             dataKey="upper" 
             stroke="none" 
-            fill="#f59e0b" 
-            fillOpacity={0.15} 
+            fill={featureColor} 
+            fillOpacity={0.12} 
             isAnimationActive={false}
           />
           <Area 
@@ -150,28 +158,28 @@ export function ForecastChart() {
             isAnimationActive={false}
           />
 
-          {/* Historical Line */}
+          {/* Historical Telemetry Line */}
           <Line 
             type="monotone" 
             dataKey="history" 
-            name="Historical"
-            stroke="#0284c7" 
-            strokeWidth={2.5}
+            name="Measured"
+            stroke={featureColor} 
+            strokeWidth={3}
             dot={false}
-            activeDot={{ r: 5, fill: "#0284c7", stroke: "#ffffff", strokeWidth: 2 }}
+            activeDot={{ r: 6, fill: featureColor, stroke: "#ffffff", strokeWidth: 2.5 }}
             isAnimationActive={false}
           />
           
-          {/* Forecast Line */}
+          {/* Forecast Projected Line */}
           <Line 
             type="monotone" 
             dataKey="forecast" 
-            name="Projected"
-            stroke="#d97706" 
+            name="Forecasted"
+            stroke={featureColor} 
             strokeWidth={2.5}
-            strokeDasharray="5 5"
+            strokeDasharray="6 4"
             dot={false}
-            activeDot={{ r: 5, fill: "#d97706", stroke: "#ffffff", strokeWidth: 2 }}
+            activeDot={{ r: 6, fill: featureColor, stroke: "#ffffff", strokeWidth: 2.5 }}
             isAnimationActive={false}
           />
 
