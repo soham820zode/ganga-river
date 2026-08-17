@@ -25,28 +25,28 @@ export function StationPreview({ station, onClose }: StationPreviewProps) {
     <div className="flex flex-col gap-4 relative">
       <button 
         onClick={onClose}
-        className="absolute -top-2 -right-2 p-1 text-text-muted hover:text-text-primary transition-colors bg-background rounded-full border border-border"
+        className="absolute -top-2 -right-2 p-1 text-slate-400 hover:text-slate-700 transition-colors bg-white rounded-full border border-slate-200 shadow-sm"
       >
         <X className="w-4 h-4" />
       </button>
 
       <div>
         <div className="flex items-center gap-2 mb-1">
-          <h3 className="text-xl font-bold text-text-primary">{station.name}</h3>
+          <h3 className="text-lg font-bold text-slate-900">{station.name}</h3>
           <StatusBadge status={station.status} />
         </div>
-        <p className="text-xs text-text-muted uppercase tracking-widest font-mono">
+        <p className="text-xs text-slate-500 uppercase tracking-widest font-mono font-medium">
           {station.id} &middot; {station.region}
         </p>
       </div>
 
-      <div className="bg-background/80 rounded-md p-3 border border-border/50">
-        <span className="text-[10px] font-bold tracking-widest text-text-secondary uppercase mb-2 block">
+      <div className="bg-slate-50 rounded-xl p-3.5 border border-slate-200/80">
+        <span className="text-[10px] font-bold tracking-widest text-slate-500 uppercase mb-2 block">
           AVAILABLE PARAMETERS
         </span>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-1.5">
           {station.availableParameters.map(param => (
-            <span key={param} className="px-2 py-1 bg-surface border border-border rounded text-[10px] text-text-primary font-mono uppercase">
+            <span key={param} className="px-2.5 py-1 bg-white border border-slate-200 rounded-lg text-[10px] text-slate-800 font-mono font-bold shadow-xs">
               {param}
             </span>
           ))}

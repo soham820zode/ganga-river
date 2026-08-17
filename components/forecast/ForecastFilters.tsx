@@ -27,13 +27,13 @@ export function ForecastFilters() {
   const horizons: ForecastHorizon[] = ['24H', '48H', '72H'];
 
   return (
-    <div className="w-full bg-surface-elevated border-b border-border/50 p-4 sticky top-16 z-30">
+    <div className="w-full bg-white/90 backdrop-blur-xl border-b border-slate-200 p-4 sticky top-16 z-20 shadow-xs">
       <div className="flex flex-wrap gap-4 items-center">
         
         {/* Station */}
-        <div className="flex items-center bg-background rounded-lg p-1 border border-border/50">
+        <div className="flex items-center bg-slate-50 rounded-xl p-1 border border-slate-200 shadow-xs">
           <select 
-            className="bg-transparent text-sm text-text-primary px-3 py-1 outline-none font-semibold cursor-pointer"
+            className="bg-transparent text-xs text-slate-900 px-3 py-1.5 outline-none font-bold cursor-pointer"
             value={selectedStationId || ''}
             onChange={(e) => setSelectedStation(e.target.value)}
           >
@@ -44,15 +44,15 @@ export function ForecastFilters() {
         </div>
 
         {/* Parameter */}
-        <div className="flex bg-background rounded-lg p-1 border border-border/50 overflow-x-auto hide-scrollbar">
+        <div className="flex bg-slate-100/80 rounded-xl p-1 border border-slate-200 overflow-x-auto hide-scrollbar gap-1">
           {parameters.map(p => (
             <button
               key={p}
               onClick={() => setSelectedParameter(p)}
-              className={`px-4 py-1.5 text-xs font-bold rounded-md transition-colors whitespace-nowrap ${
+              className={`px-3.5 py-1.5 text-xs font-bold rounded-lg transition-all whitespace-nowrap ${
                 selectedParameter === p 
-                  ? 'bg-accent/20 text-accent border border-accent/30' 
-                  : 'text-text-secondary hover:text-text-primary hover:bg-surface-elevated border border-transparent'
+                  ? 'bg-white text-slate-900 shadow-sm border border-slate-200' 
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/50 border border-transparent'
               }`}
             >
               {PARAMETER_METADATA[p].displayName}
@@ -61,15 +61,15 @@ export function ForecastFilters() {
         </div>
 
         {/* Horizon */}
-        <div className="flex bg-background rounded-lg p-1 border border-border/50 ml-auto">
+        <div className="flex bg-slate-100/80 rounded-xl p-1 border border-slate-200 ml-auto gap-1">
           {horizons.map(r => (
             <button
               key={r}
               onClick={() => setForecastHorizon(r)}
-              className={`px-3 py-1 text-xs font-bold font-mono rounded-md transition-colors ${
+              className={`px-3 py-1.5 text-xs font-bold font-mono rounded-lg transition-all ${
                 forecastHorizon === r 
-                  ? 'bg-surface-elevated text-text-primary border border-border/50 shadow-sm' 
-                  : 'text-text-muted hover:text-text-secondary border border-transparent'
+                  ? 'bg-white text-slate-900 border border-slate-200 shadow-sm' 
+                  : 'text-slate-500 hover:text-slate-800 border border-transparent'
               }`}
             >
               {r}

@@ -27,13 +27,13 @@ export function ParameterCard({ parameter, value, status, trend, lastUpdated, is
                     status === 'WARNING' ? 'border-glow-amber' : 
                     'border-glow-cyan';
 
-  const statusColor = status === 'CRITICAL' ? 'text-critical bg-critical/10 border-critical/25' : 
-                      status === 'WARNING' ? 'text-warning bg-warning/10 border-warning/25' : 
-                      'text-accent bg-accent/10 border-accent/25';
+  const statusColor = status === 'CRITICAL' ? 'text-rose-700 bg-rose-50 border-rose-200' : 
+                      status === 'WARNING' ? 'text-amber-800 bg-amber-50 border-amber-200' : 
+                      'text-emerald-700 bg-emerald-50 border-emerald-200';
 
-  const valueColor = status === 'CRITICAL' ? 'text-critical text-glow' : 
-                     status === 'WARNING' ? 'text-warning' : 
-                     'text-text-primary';
+  const valueColor = status === 'CRITICAL' ? 'text-rose-600' : 
+                     status === 'WARNING' ? 'text-amber-700' : 
+                     'text-slate-900';
 
   const TrendIcon = trend === 'UP' ? ArrowUpRight : trend === 'DOWN' ? ArrowDownRight : Minus;
   
@@ -42,14 +42,14 @@ export function ParameterCard({ parameter, value, status, trend, lastUpdated, is
       onClick={() => setSelectedParameter(parameter)}
       className={`w-full text-left relative overflow-hidden rounded-2xl border p-5 transition-all duration-300 ${
         isSelected 
-          ? `aetheris-glass border-accent/40 shadow-[0_0_30px_rgba(0,200,255,0.12)] ${glowClass}` 
-          : 'aetheris-glass hover:border-white/15'
+          ? `bg-white border-sky-500 shadow-lg shadow-sky-500/10 ring-2 ring-sky-500/20` 
+          : 'bg-white hover:bg-slate-50/80 border-slate-200/90 shadow-sm hover:shadow-md'
       }`}
     >
       <div className="flex justify-between items-start mb-4">
         <div>
-          <h3 className="text-sm font-bold text-text-primary tracking-wider">{meta.key}</h3>
-          <p className="text-[9px] text-text-muted uppercase mt-1 tracking-[0.15em] font-mono">{isStationSpecific ? 'Station Value' : 'Network Avg'}</p>
+          <h3 className="text-sm font-bold text-slate-900 tracking-wider">{meta.key}</h3>
+          <p className="text-[9px] text-slate-500 uppercase mt-1 tracking-[0.15em] font-mono font-medium">{isStationSpecific ? 'Station Value' : 'Network Avg'}</p>
         </div>
         <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[9px] font-bold uppercase tracking-[0.15em] border ${statusColor}`}>
           {StatusIcon && <StatusIcon className="w-3 h-3" />}

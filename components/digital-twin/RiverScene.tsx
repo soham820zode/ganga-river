@@ -43,19 +43,19 @@ export function RiverScene() {
 
   return (
     <>
-      <color attach="background" args={['#05080D']} />
-      <fog attach="fog" args={['#05080D', 5, 20]} />
+      <color attach="background" args={['#f8fafc']} />
+      <fog attach="fog" args={['#f8fafc', 8, 26]} />
       
-      <ambientLight intensity={0.5} />
-      <directionalLight position={[5, 10, 5]} intensity={1} color="#00e5ff" />
-      <pointLight position={[-5, 5, -5]} intensity={0.5} color="#10b981" />
+      <ambientLight intensity={0.9} />
+      <directionalLight position={[5, 12, 5]} intensity={1.2} color="#0284c7" />
+      <pointLight position={[-5, 8, -5]} intensity={0.6} color="#059669" />
 
       <RiverPath />
       <RiverParticles />
       <StationNodes />
       
       {/* Subtle floor grid for geographic context */}
-      <gridHelper args={[30, 30, '#0e1722', '#0e1722']} position={[0, -3, 0]} />
+      <gridHelper args={[30, 30, '#cbd5e1', '#e2e8f0']} position={[0, -3, 0]} />
 
       <CameraControls 
         ref={controlsRef}

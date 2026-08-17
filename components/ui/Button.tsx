@@ -27,12 +27,12 @@ export function Button({
   };
   
   const variantStyles = {
-    primary: 'bg-accent/15 border border-accent/40 text-accent hover:bg-accent/25 hover:border-accent/60 hover:shadow-[0_0_25px_rgba(0,200,255,0.2)] active:scale-[0.98]',
-    secondary: 'bg-white/[0.04] border border-white/10 text-text-primary hover:border-white/20 hover:bg-white/[0.06]',
-    ghost: 'bg-transparent border-transparent text-text-secondary hover:text-text-primary hover:bg-white/[0.04]',
-    outline: 'bg-transparent border border-white/10 text-text-primary hover:border-accent/40 hover:text-accent hover:shadow-[0_0_20px_rgba(0,200,255,0.08)]',
-    danger: 'bg-critical/10 border border-critical/30 text-critical hover:bg-critical/20 hover:border-critical/50',
-    success: 'bg-success/10 border border-success/30 text-success hover:bg-success/20 hover:border-success/50',
+    primary: 'bg-slate-900 text-white hover:bg-slate-800 shadow-sm hover:shadow-md border border-slate-900 active:scale-[0.98]',
+    secondary: 'bg-slate-100/90 border border-slate-200 text-slate-800 hover:bg-slate-200/80 hover:border-slate-300 shadow-sm',
+    ghost: 'bg-transparent border-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-100',
+    outline: 'bg-white border border-slate-200 text-slate-700 hover:border-sky-500 hover:text-sky-600 hover:bg-sky-50/60 shadow-sm',
+    danger: 'bg-rose-50 border border-rose-200 text-rose-600 hover:bg-rose-100/80 shadow-sm',
+    success: 'bg-emerald-50 border border-emerald-200 text-emerald-700 hover:bg-emerald-100/80 shadow-sm',
   };
 
   return (

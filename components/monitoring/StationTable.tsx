@@ -17,21 +17,21 @@ export function StationTable() {
 
   return (
     <div className="w-full px-4 md:px-8 py-6">
-      <h3 className="text-sm font-bold tracking-[0.2em] text-accent mb-4 uppercase">Monitoring Network</h3>
+      <h3 className="text-xs font-bold tracking-[0.2em] text-sky-600 mb-4 uppercase">Monitoring Network Table</h3>
       
-      <div className="w-full overflow-x-auto rounded-xl border border-border/50 bg-surface custom-scrollbar">
+      <div className="w-full overflow-x-auto rounded-2xl border border-slate-200/90 bg-white shadow-sm custom-scrollbar">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="border-b border-border/50 bg-surface-elevated text-xs uppercase tracking-wider text-text-muted">
-              <th className="p-4 font-semibold whitespace-nowrap">Station</th>
-              <th className="p-4 font-semibold whitespace-nowrap">Status</th>
+            <tr className="border-b border-slate-200 bg-slate-50/80 text-[11px] uppercase tracking-wider text-slate-500 font-bold">
+              <th className="p-4 whitespace-nowrap">Station</th>
+              <th className="p-4 whitespace-nowrap">Status</th>
               {parameters.map(p => (
-                <th key={p} className="p-4 font-semibold whitespace-nowrap">{p} <span className="lowercase text-[10px]">({PARAMETER_METADATA[p].unit})</span></th>
+                <th key={p} className="p-4 whitespace-nowrap">{p} <span className="lowercase text-[10px] text-slate-400 font-normal">({PARAMETER_METADATA[p].unit})</span></th>
               ))}
-              <th className="p-4 font-semibold whitespace-nowrap">Last Update</th>
+              <th className="p-4 whitespace-nowrap">Last Update</th>
             </tr>
           </thead>
-          <tbody className="text-sm divide-y divide-border/30">
+          <tbody className="text-sm divide-y divide-slate-100">
             {stations.map(st => {
               const isSelected = selectedStationId === st.id;
               return (
@@ -39,12 +39,12 @@ export function StationTable() {
                   key={st.id} 
                   onClick={() => setSelectedStation(isSelected ? null : st.id)}
                   className={`cursor-pointer transition-colors ${
-                    isSelected ? 'bg-accent/10 hover:bg-accent/15' : 'hover:bg-surface-elevated'
+                    isSelected ? 'bg-sky-50/90 hover:bg-sky-100/70' : 'hover:bg-slate-50/80'
                   }`}
                 >
                   <td className="p-4 whitespace-nowrap">
-                    <div className="font-semibold text-text-primary">{st.name}</div>
-                    <div className="text-xs text-text-muted font-mono">{st.id}</div>
+                    <div className="font-semibold text-slate-900">{st.name}</div>
+                    <div className="text-xs text-slate-400 font-mono">{st.id}</div>
                   </td>
                   <td className="p-4 whitespace-nowrap">
                     {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
@@ -52,16 +52,16 @@ export function StationTable() {
                   </td>
                   {parameters.map(p => {
                     const reading = st.readings[p];
-                    if (!reading) return <td key={p} className="p-4 text-text-muted">—</td>;
+                    if (!reading) return <td key={p} className="p-4 text-slate-400">—</td>;
                     return (
                       <td key={p} className="p-4 font-mono whitespace-nowrap">
-                        <span className={`${reading.status === 'CRITICAL' ? 'text-red-500 font-bold' : reading.status === 'WARNING' ? 'text-amber-500 font-bold' : 'text-text-primary'}`}>
+                        <span className={`${reading.status === 'CRITICAL' ? 'text-rose-600 font-bold' : reading.status === 'WARNING' ? 'text-amber-600 font-bold' : 'text-slate-800'}`}>
                           {formatValue(reading.value, PARAMETER_METADATA[p].decimals)}
                         </span>
                       </td>
                     );
                   })}
-                  <td className="p-4 text-xs text-text-muted font-mono whitespace-nowrap">
+                  <td className="p-4 text-xs text-slate-500 font-mono whitespace-nowrap">
                     {formatTimeAgo(st.lastUpdated)}
                   </td>
                 </tr>

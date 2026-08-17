@@ -31,7 +31,7 @@ export function StationNode({ station }: StationNodeProps) {
   const ringRef = useRef<THREE.Mesh>(null);
   
   const statusColor = getStatusColor(station.status);
-  const displayColor = isSelected || hovered ? '#00e5ff' : statusColor;
+  const displayColor = isSelected || hovered ? '#0284c7' : statusColor;
 
   const elapsedTime = useRef(0);
 
@@ -83,7 +83,7 @@ export function StationNode({ station }: StationNodeProps) {
         <meshBasicMaterial 
           color={displayColor} 
           transparent 
-          opacity={isSelected ? 0.4 : 0.1} 
+          opacity={isSelected ? 0.5 : 0.2} 
           blending={THREE.AdditiveBlending}
         />
       </mesh>
@@ -91,16 +91,16 @@ export function StationNode({ station }: StationNodeProps) {
       {/* HTML Label */}
       {showLabel && (
         <Html position={[0, 1.2, 0]} center zIndexRange={[100, 0]} className="pointer-events-none">
-          <div className={`flex flex-col items-center transition-all duration-300 ${isSelected ? 'scale-110' : 'scale-100 opacity-80'}`}>
-            <div className={`px-2 py-1 rounded bg-surface-elevated/90 backdrop-blur-md border border-border/50 shadow-lg flex items-center gap-2 ${isSelected ? 'border-accent/50 shadow-glow' : ''}`}>
-              <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: statusColor }} />
-              <span className={`text-[10px] font-bold tracking-widest whitespace-nowrap ${isSelected ? 'text-accent' : 'text-text-primary'}`}>
+          <div className={`flex flex-col items-center transition-all duration-300 ${isSelected ? 'scale-110' : 'scale-100 opacity-90'}`}>
+            <div className={`px-2.5 py-1 rounded-xl bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-md flex items-center gap-2 ${isSelected ? 'border-sky-500 ring-2 ring-sky-500/20' : ''}`}>
+              <div className="w-2 h-2 rounded-full" style={{ backgroundColor: statusColor }} />
+              <span className={`text-[10px] font-bold tracking-wider whitespace-nowrap ${isSelected ? 'text-sky-600' : 'text-slate-800'}`}>
                 {station.name.toUpperCase()}
               </span>
             </div>
             {isSelected && (
-              <div className="mt-1 px-1.5 py-0.5 rounded bg-surface/80 border border-border/50">
-                <span className="text-[8px] text-text-secondary uppercase">
+              <div className="mt-1 px-2 py-0.5 rounded-lg bg-slate-900 text-white border border-slate-800 shadow-sm">
+                <span className="text-[8px] tracking-wider uppercase font-bold">
                   {station.status} &middot; DEMO
                 </span>
               </div>

@@ -30,39 +30,39 @@ export function AnalyticsSummary() {
 
   return (
     <div className="w-full grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4 md:px-8">
-      <div className="bg-surface-elevated border border-border/50 rounded-xl p-4">
-        <div className="text-xs text-text-muted uppercase tracking-wider mb-2">{analyticsTimeRange} Average</div>
+      <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
+        <div className="text-[11px] text-slate-500 uppercase tracking-wider mb-2 font-bold">{analyticsTimeRange} Average</div>
         <div className="flex items-baseline gap-2">
-          <span className="text-2xl font-mono text-text-primary font-bold">{formatValue(stats.avg, meta.decimals)}</span>
-          <span className="text-xs text-text-secondary">{meta.unit}</span>
+          <span className="text-2xl font-mono text-slate-900 font-bold">{formatValue(stats.avg, meta.decimals)}</span>
+          <span className="text-xs text-slate-500">{meta.unit}</span>
         </div>
       </div>
-      <div className="bg-surface-elevated border border-border/50 rounded-xl p-4">
-        <div className="text-xs text-text-muted uppercase tracking-wider mb-2">Net Change</div>
+      <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
+        <div className="text-[11px] text-slate-500 uppercase tracking-wider mb-2 font-bold">Net Change</div>
         <div className={`flex items-center gap-2 text-lg font-mono font-bold ${trendColor}`}>
           <TrendIcon className="w-5 h-5" />
           {stats.change > 0 ? '+' : ''}{formatValue(stats.change, 1)}%
         </div>
       </div>
-      <div className="bg-surface-elevated border border-border/50 rounded-xl p-4">
-        <div className="text-xs text-text-muted uppercase tracking-wider mb-2">Maximum</div>
+      <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
+        <div className="text-[11px] text-slate-500 uppercase tracking-wider mb-2 font-bold">Maximum</div>
         <div className="flex items-baseline gap-2">
-          <span className="text-2xl font-mono text-text-primary font-bold">{formatValue(stats.max, meta.decimals)}</span>
-          <span className="text-xs text-text-secondary">{meta.unit}</span>
+          <span className="text-2xl font-mono text-slate-900 font-bold">{formatValue(stats.max, meta.decimals)}</span>
+          <span className="text-xs text-slate-500">{meta.unit}</span>
         </div>
       </div>
-      <div className="bg-surface-elevated border border-border/50 rounded-xl p-4">
-        <div className="text-xs text-text-muted uppercase tracking-wider mb-2">Reference</div>
-        <div className="text-lg font-mono text-text-primary font-bold mt-1">
+      <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
+        <div className="text-[11px] text-slate-500 uppercase tracking-wider mb-2 font-bold">Reference</div>
+        <div className="text-base font-mono text-slate-800 font-bold mt-1">
           {meta.reference}
         </div>
       </div>
-      <div className="bg-surface-elevated border border-border/50 rounded-xl p-4 col-span-2 md:col-span-4 lg:col-span-1">
-        <div className="text-xs text-text-muted uppercase tracking-wider mb-2 flex items-center gap-2">
-          <AlertTriangle className="w-3 h-3 text-amber-500" /> Threshold Crossings
+      <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm col-span-2 md:col-span-4 lg:col-span-1">
+        <div className="text-[11px] text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-1.5 font-bold">
+          <AlertTriangle className="w-3.5 h-3.5 text-amber-600" /> Threshold Crossings
         </div>
-        <div className={`text-2xl font-mono font-bold ${stats.crossings > 0 ? 'text-amber-500' : 'text-text-primary'}`}>
-          {stats.crossings} <span className="text-xs text-text-secondary font-sans font-normal uppercase ml-1">Events</span>
+        <div className={`text-2xl font-mono font-bold ${stats.crossings > 0 ? 'text-amber-600' : 'text-slate-900'}`}>
+          {stats.crossings} <span className="text-xs text-slate-500 font-sans font-normal uppercase ml-1">Events</span>
         </div>
       </div>
     </div>

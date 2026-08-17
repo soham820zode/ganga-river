@@ -58,9 +58,9 @@ export function ForecastChart() {
 
   if (!forecast || !selectedParameter || forecast.status === 'INSUFFICIENT DATA') {
     return (
-      <div className="w-full h-[500px] flex flex-col items-center justify-center bg-surface border-y border-border/50 text-text-muted p-8 text-center">
-        <div className="text-xl mb-2 font-bold tracking-widest uppercase">Forecast Unavailable</div>
-        <div className="text-sm">Insufficient historical data to calculate trend for this station. Allow the simulation to run longer.</div>
+      <div className="w-full h-[500px] flex flex-col items-center justify-center bg-white border-y border-slate-200 text-slate-400 p-8 text-center">
+        <div className="text-xl mb-2 font-bold tracking-widest uppercase text-slate-800">Forecast Unavailable</div>
+        <div className="text-sm text-slate-500">Insufficient historical data to calculate trend for this station. Allow the simulation to run longer.</div>
       </div>
     );
   }
@@ -68,19 +68,19 @@ export function ForecastChart() {
   const meta = PARAMETER_METADATA[selectedParameter];
 
   return (
-    <div className="w-full h-[500px] bg-surface border-y border-border/50 p-4 pt-8 relative">
+    <div className="w-full h-[500px] bg-white border-y border-slate-200 p-4 pt-8 relative shadow-xs">
       <ResponsiveContainer width="100%" height="100%">
         <ComposedChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" vertical={false} />
+          <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
           <XAxis 
             dataKey="time" 
-            stroke="#6b7280" 
+            stroke="#94a3b8" 
             fontSize={10} 
             tickMargin={10} 
             minTickGap={40}
           />
           <YAxis 
-            stroke="#6b7280" 
+            stroke="#94a3b8" 
             fontSize={10} 
             domain={['auto', 'auto']}
             tickFormatter={(v) => formatValue(v, meta.decimals)}
@@ -90,28 +90,28 @@ export function ForecastChart() {
               if (active && payload && payload.length) {
                 const isF = payload[0].payload.isForecast;
                 return (
-                  <div className="bg-surface-elevated/95 backdrop-blur border border-border/50 rounded-lg p-3 shadow-2xl min-w-[200px]">
+                  <div className="bg-white/95 backdrop-blur border border-slate-200 rounded-2xl p-4 shadow-xl min-w-[200px]">
                     <div className="flex justify-between items-center mb-2">
-                       <p className="text-text-muted text-xs font-mono">{label}</p>
-                       <span className={`text-[9px] font-bold tracking-widest px-1.5 py-0.5 rounded uppercase ${isF ? 'bg-amber-500/20 text-amber-500' : 'bg-accent/20 text-accent'}`}>
+                       <p className="text-slate-400 text-xs font-mono font-bold">{label}</p>
+                       <span className={`text-[9px] font-bold tracking-widest px-2 py-0.5 rounded-lg uppercase ${isF ? 'bg-amber-50 text-amber-700 border border-amber-200' : 'bg-sky-50 text-sky-700 border border-sky-200'}`}>
                          {isF ? 'FORECAST' : 'HISTORICAL'}
                        </span>
                     </div>
                     {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                     {payload.map((entry: any, index: number) => {
-                      if (entry.dataKey === 'lower' || entry.dataKey === 'upper') return null; // Hide bounds from main tooltip list
+                      if (entry.dataKey === 'lower' || entry.dataKey === 'upper') return null;
                       return (
                         <div key={index} className="flex items-center gap-3 text-sm">
                           <span style={{ color: entry.color }} className="font-bold flex-1">{entry.name}</span>
-                          <span className="font-mono font-bold text-text-primary">
+                          <span className="font-mono font-bold text-slate-900">
                             {formatValue(entry.value, meta.decimals)}
-                            <span className="text-xs text-text-secondary ml-1">{meta.unit}</span>
+                            <span className="text-xs text-slate-500 ml-1">{meta.unit}</span>
                           </span>
                         </div>
                       )
                     })}
                     {isF && payload[0].payload.lower !== undefined && (
-                       <div className="mt-2 pt-2 border-t border-border/50 text-xs text-text-muted font-mono">
+                       <div className="mt-2 pt-2 border-t border-slate-100 text-xs text-slate-500 font-mono font-medium">
                          Range: {formatValue(payload[0].payload.lower, meta.decimals)} – {formatValue(payload[0].payload.upper, meta.decimals)}
                        </div>
                     )}
@@ -125,10 +125,10 @@ export function ForecastChart() {
           {forecast.referenceThreshold !== undefined && !isNaN(forecast.referenceThreshold) && (
             <ReferenceLine 
               y={forecast.referenceThreshold} 
-              stroke="#ef4444" 
+              stroke="#e11d48" 
               strokeDasharray="4 4" 
-              opacity={0.5}
-              label={{ position: 'insideTopLeft', value: 'PROTOTYPE REFERENCE', fill: '#ef4444', fontSize: 10 }}
+              opacity={0.6}
+              label={{ position: 'insideTopLeft', value: 'REFERENCE THRESHOLD', fill: '#e11d48', fontSize: 10, fontWeight: 'bold' }}
             />
           )}
 
@@ -138,14 +138,14 @@ export function ForecastChart() {
             dataKey="upper" 
             stroke="none" 
             fill="#f59e0b" 
-            fillOpacity={0.05} 
+            fillOpacity={0.15} 
             isAnimationActive={false}
           />
           <Area 
             type="monotone" 
             dataKey="lower" 
             stroke="none" 
-            fill="#0a111a" 
+            fill="#ffffff" 
             fillOpacity={1} 
             isAnimationActive={false}
           />
@@ -155,10 +155,10 @@ export function ForecastChart() {
             type="monotone" 
             dataKey="history" 
             name="Historical"
-            stroke="#00e5ff" 
-            strokeWidth={2}
+            stroke="#0284c7" 
+            strokeWidth={2.5}
             dot={false}
-            activeDot={{ r: 4, fill: "#00e5ff", stroke: "#0a111a", strokeWidth: 2 }}
+            activeDot={{ r: 5, fill: "#0284c7", stroke: "#ffffff", strokeWidth: 2 }}
             isAnimationActive={false}
           />
           
@@ -167,11 +167,11 @@ export function ForecastChart() {
             type="monotone" 
             dataKey="forecast" 
             name="Projected"
-            stroke="#f59e0b" 
-            strokeWidth={2}
+            stroke="#d97706" 
+            strokeWidth={2.5}
             strokeDasharray="5 5"
             dot={false}
-            activeDot={{ r: 4, fill: "#f59e0b", stroke: "#0a111a", strokeWidth: 2 }}
+            activeDot={{ r: 5, fill: "#d97706", stroke: "#ffffff", strokeWidth: 2 }}
             isAnimationActive={false}
           />
 

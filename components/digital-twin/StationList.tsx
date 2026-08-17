@@ -27,13 +27,13 @@ export function StationList() {
               setSelectedStation(station.id);
               setCameraTarget(station.position);
             }}
-            className={`w-full text-left flex items-center justify-between p-3 rounded-md transition-all ${
+            className={`w-full text-left flex items-center justify-between p-3.5 rounded-xl border transition-all ${
               selectedStationId === station.id 
-                ? 'bg-accent/10 border border-accent/30 shadow-glow' 
-                : 'bg-surface hover:bg-surface-elevated border border-border'
+                ? 'bg-sky-50/90 border-sky-300 shadow-sm ring-1 ring-sky-500/20' 
+                : 'bg-white hover:bg-slate-50 border-slate-200/80 shadow-[0_1px_3px_rgba(0,0,0,0.02)]'
             }`}
           >
-            <span className={`text-sm font-medium ${selectedStationId === station.id ? 'text-accent' : 'text-text-primary'}`}>
+            <span className={`text-sm font-semibold ${selectedStationId === station.id ? 'text-sky-700' : 'text-slate-800'}`}>
               {station.name}
             </span>
             <StatusBadge status={station.status as "ONLINE" | "WARNING" | "CRITICAL" | "OFFLINE"} />

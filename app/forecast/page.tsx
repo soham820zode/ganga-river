@@ -14,15 +14,15 @@ export default function ForecastPage() {
       <Navbar />
       
       {/* Header */}
-      <div className="w-full flex flex-col md:flex-row justify-between items-start md:items-center py-8 px-4 md:px-8 border-b border-white/[0.06] backdrop-blur-xl bg-background/30">
+      <div className="w-full flex flex-col md:flex-row justify-between items-start md:items-center py-6 px-4 md:px-8 border-b border-slate-200/80 backdrop-blur-xl bg-white/70">
         <div>
-          <h1 className="text-2xl font-bold tracking-[0.1em] text-text-primary uppercase">
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900 uppercase">
             Predictive Intelligence
           </h1>
-          <p className="text-[10px] text-warning mt-2 font-mono tracking-[0.3em] uppercase">PROTOTYPE 48-HOUR FORECAST SYSTEM</p>
+          <p className="text-[10px] text-amber-700 mt-1 font-mono tracking-[0.2em] uppercase font-bold">48-HOUR HYDROLOGICAL NEURAL FORECAST SYSTEM</p>
         </div>
         <div className="mt-4 md:mt-0 flex items-center gap-2">
-          <span className="text-[10px] font-bold tracking-[0.2em] bg-warning/10 text-warning border border-warning/20 px-4 py-1.5 rounded-xl uppercase shadow-[0_0_12px_rgba(255,179,71,0.08)]">
+          <span className="text-[10px] font-bold tracking-[0.2em] bg-amber-50 text-amber-800 border border-amber-200 px-3.5 py-1.5 rounded-xl uppercase shadow-xs">
             Simulated Forecast
           </span>
         </div>

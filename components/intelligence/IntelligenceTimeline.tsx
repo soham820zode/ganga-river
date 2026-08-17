@@ -20,40 +20,40 @@ export function IntelligenceTimeline({ insights }: IntelligenceTimelineProps) {
   };
 
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden p-6">
-      <h3 className="text-sm font-semibold tracking-wide text-slate-300 uppercase mb-6 flex items-center gap-2">
-        <Clock className="w-4 h-4" />
+    <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden p-6 shadow-sm">
+      <h3 className="text-xs font-bold tracking-widest text-slate-700 uppercase mb-6 flex items-center gap-2">
+        <Clock className="w-4 h-4 text-sky-600" />
         Intelligence Timeline
       </h3>
       
       <div className="space-y-6">
         {sortedInsights.length === 0 ? (
-          <p className="text-slate-500 text-sm">No recent intelligence events.</p>
+          <p className="text-slate-400 text-sm">No recent intelligence events.</p>
         ) : (
-          <div className="relative border-l border-slate-800 ml-3 space-y-6">
+          <div className="relative border-l border-slate-200 ml-3 space-y-6">
             {sortedInsights.slice(0, 10).map((insight) => (
               <div key={insight.id} className="relative pl-6">
-                <div className="absolute -left-[9px] top-1 bg-slate-900 rounded-full p-0.5 border border-slate-800">
+                <div className="absolute -left-[9px] top-1 bg-white rounded-full p-0.5 border border-slate-200 shadow-xs">
                   {getIcon(insight.type, insight.severity)}
                 </div>
                 <div className="flex flex-col gap-1">
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium text-slate-200">
+                    <span className="text-sm font-bold text-slate-900">
                       {insight.title}
                     </span>
-                    <span className="text-xs text-slate-500">
+                    <span className="text-xs text-slate-400 font-mono font-medium">
                       {new Date(insight.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     </span>
                   </div>
-                  <p className="text-sm text-slate-400">
+                  <p className="text-xs text-slate-600 leading-relaxed font-medium">
                     {insight.summary}
                   </p>
                   <div className="flex items-center gap-2 mt-1">
-                    <span className="text-[10px] font-mono tracking-wider uppercase bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded">
+                    <span className="text-[9px] font-mono tracking-wider uppercase bg-slate-100 text-slate-600 px-2 py-0.5 rounded-md font-bold border border-slate-200">
                       {insight.source}
                     </span>
                     {insight.parameter && (
-                      <span className="text-[10px] font-mono tracking-wider uppercase text-slate-500 border border-slate-700 px-1.5 py-0.5 rounded">
+                      <span className="text-[9px] font-mono tracking-wider uppercase text-sky-700 bg-sky-50 border border-sky-200 px-2 py-0.5 rounded-md font-bold">
                         {insight.parameter}
                       </span>
                     )}

@@ -47,20 +47,20 @@ export default function IntelligenceDashboard() {
   };
 
   return (
-    <div className="min-h-screen text-text-primary font-sans">
+    <div className="min-h-screen text-slate-900 font-sans pb-20">
       <Navbar />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-24">
         
         <header className="mb-10">
           <div className="flex items-center gap-3 mb-3">
-            <div className="p-2.5 bg-accent/10 rounded-xl border border-accent/15 shadow-[0_0_15px_rgba(0,200,255,0.1)]">
-              <Brain className="w-6 h-6 text-accent" />
+            <div className="p-2.5 bg-sky-50 rounded-2xl border border-sky-200 shadow-sm text-sky-600">
+              <Brain className="w-6 h-6" />
             </div>
-            <h1 className="text-2xl font-bold text-text-primary tracking-[0.05em]">Environmental Intelligence</h1>
+            <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Environmental Intelligence</h1>
           </div>
-          <p className="text-text-secondary max-w-3xl">
-            Automated analysis and decision-support layer translating simulated environmental data into clear, actionable insights.
+          <p className="text-slate-600 max-w-3xl">
+            Automated analysis and decision-support layer translating real-time environmental data into clear, actionable insights for the Ganga basin.
           </p>
         </header>
 
@@ -71,20 +71,20 @@ export default function IntelligenceDashboard() {
             
             {/* System Intelligence Summary */}
             {networkInsight && (
-              <div className="aetheris-glass p-6 border-glow-cyan">
-                <h2 className="text-[10px] font-bold tracking-[0.3em] text-accent uppercase mb-3 text-glow">System Intelligence Summary</h2>
-                <p className="text-text-primary leading-relaxed">{networkInsight.summary}</p>
+              <div className="bg-white border border-sky-200 rounded-3xl p-6 shadow-sm">
+                <h2 className="text-[10px] font-bold tracking-[0.3em] text-sky-600 uppercase mb-3">System Intelligence Summary</h2>
+                <p className="text-slate-800 leading-relaxed font-medium">{networkInsight.summary}</p>
               </div>
             )}
 
             {/* Top Priority Signal */}
             <div>
               <div className="flex items-center justify-between mb-5">
-                <h2 className="text-lg font-semibold text-text-primary tracking-wide">Top Priority Signal</h2>
+                <h2 className="text-base font-bold text-slate-900 tracking-wide uppercase">Top Priority Signal</h2>
                 {priorityStation && (
-                  <div className="flex items-center gap-2 text-[10px] text-text-secondary bg-white/[0.04] px-4 py-2 rounded-xl border border-white/[0.08] tracking-wider uppercase">
-                    <MapPin className="w-3.5 h-3.5" />
-                    Demo Priority: <span className="font-semibold text-text-primary">{priorityStationName}</span>
+                  <div className="flex items-center gap-2 text-[10px] text-slate-600 bg-slate-100 px-4 py-2 rounded-xl border border-slate-200 tracking-wider uppercase font-bold">
+                    <MapPin className="w-3.5 h-3.5 text-sky-600" />
+                    Priority Station: <span className="text-slate-900">{priorityStationName}</span>
                   </div>
                 )}
               </div>
@@ -92,8 +92,8 @@ export default function IntelligenceDashboard() {
               {topInsight ? (
                 <InsightCard insight={topInsight} onAction={handleAction} />
               ) : (
-                <div className="aetheris-glass p-10 text-center text-text-muted">
-                  <div className="text-[10px] tracking-[0.3em] uppercase font-bold">Gathering initial simulated data to generate insights...</div>
+                <div className="bg-white border border-slate-200 rounded-3xl p-10 text-center text-slate-400 shadow-sm">
+                  <div className="text-[10px] tracking-[0.2em] uppercase font-bold">Gathering telemetry data to generate insights...</div>
                 </div>
               )}
             </div>

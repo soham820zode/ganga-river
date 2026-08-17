@@ -13,16 +13,16 @@ export default function AnalyticsPage() {
       <Navbar />
       
       {/* Header */}
-      <div className="w-full flex flex-col md:flex-row justify-between items-start md:items-center py-6 px-4 md:px-8 bg-surface border-b border-border/50">
+      <div className="w-full flex flex-col md:flex-row justify-between items-start md:items-center py-6 px-4 md:px-8 bg-white/80 backdrop-blur-xl border-b border-slate-200">
         <div>
-          <h1 className="text-2xl font-bold tracking-wider text-text-primary uppercase">
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900 uppercase">
             Historical Water Quality
           </h1>
-          <p className="text-sm text-text-secondary mt-1">Explore how river-quality signals change across stations and time.</p>
+          <p className="text-sm text-slate-600 mt-1">Multi-station comparative analysis, longitudinal telemetry, and corridor trends.</p>
         </div>
         <div className="mt-4 md:mt-0 flex items-center gap-2">
-          <span className="text-[10px] font-bold tracking-widest bg-accent/20 text-accent border border-accent/30 px-3 py-1 rounded-full uppercase">
-            Simulated Data
+          <span className="text-[10px] font-bold tracking-[0.2em] bg-slate-100 text-slate-700 border border-slate-200 px-3.5 py-1.5 rounded-xl uppercase shadow-xs">
+            Live Stream
           </span>
         </div>
       </div>

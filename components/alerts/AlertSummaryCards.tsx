@@ -12,29 +12,29 @@ export function AlertSummaryCards() {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-      <div className="aetheris-glass border-glow-red p-6 flex items-center gap-4 relative overflow-hidden rounded-2xl">
-        <div className="absolute top-0 right-0 w-24 h-24 bg-critical/5 rounded-bl-full -mr-8 -mt-8" />
-        <div className="p-3 bg-critical/10 text-critical rounded-xl border border-critical/15"><ShieldAlert className="w-8 h-8" /></div>
+      <div className="bg-white border border-rose-200 p-6 flex items-center gap-4 relative overflow-hidden rounded-2xl shadow-sm">
+        <div className="absolute top-0 right-0 w-24 h-24 bg-rose-50 rounded-bl-full -mr-8 -mt-8" />
+        <div className="p-3 bg-rose-50 text-rose-600 rounded-xl border border-rose-200"><ShieldAlert className="w-8 h-8" /></div>
         <div>
-          <div className="text-3xl font-mono font-bold text-critical">{activeCritical}</div>
-          <div className="text-[9px] tracking-[0.2em] text-text-muted uppercase mt-1 font-mono">Active Critical</div>
+          <div className="text-3xl font-mono font-bold text-rose-600">{activeCritical}</div>
+          <div className="text-[10px] tracking-[0.15em] text-slate-500 uppercase mt-1 font-mono font-bold">Active Critical</div>
         </div>
       </div>
 
-      <div className="aetheris-glass border-glow-amber p-6 flex items-center gap-4 relative overflow-hidden rounded-2xl">
-        <div className="absolute top-0 right-0 w-24 h-24 bg-warning/5 rounded-bl-full -mr-8 -mt-8" />
-        <div className="p-3 bg-warning/10 text-warning rounded-xl border border-warning/15"><AlertTriangle className="w-8 h-8" /></div>
+      <div className="bg-white border border-amber-200 p-6 flex items-center gap-4 relative overflow-hidden rounded-2xl shadow-sm">
+        <div className="absolute top-0 right-0 w-24 h-24 bg-amber-50 rounded-bl-full -mr-8 -mt-8" />
+        <div className="p-3 bg-amber-50 text-amber-600 rounded-xl border border-amber-200"><AlertTriangle className="w-8 h-8" /></div>
         <div>
-          <div className="text-3xl font-mono font-bold text-warning">{activeWarning}</div>
-          <div className="text-[9px] tracking-[0.2em] text-text-muted uppercase mt-1 font-mono">Active Warnings</div>
+          <div className="text-3xl font-mono font-bold text-amber-600">{activeWarning}</div>
+          <div className="text-[10px] tracking-[0.15em] text-slate-500 uppercase mt-1 font-mono font-bold">Active Warnings</div>
         </div>
       </div>
 
-      <div className="aetheris-glass p-6 flex items-center gap-4 rounded-2xl">
-        <div className="p-3 bg-accent/10 text-accent rounded-xl border border-accent/15"><ShieldCheck className="w-8 h-8" /></div>
+      <div className="bg-white border border-slate-200 p-6 flex items-center gap-4 rounded-2xl shadow-sm">
+        <div className="p-3 bg-emerald-50 text-emerald-600 rounded-xl border border-emerald-200"><ShieldCheck className="w-8 h-8" /></div>
         <div>
-          <div className="text-3xl font-mono font-bold text-text-primary">{resolved}</div>
-          <div className="text-[9px] tracking-[0.2em] text-text-muted uppercase mt-1 font-mono">Resolved Events</div>
+          <div className="text-3xl font-mono font-bold text-slate-900">{resolved}</div>
+          <div className="text-[10px] tracking-[0.15em] text-slate-500 uppercase mt-1 font-mono font-bold">Resolved Events</div>
         </div>
       </div>
     </div>

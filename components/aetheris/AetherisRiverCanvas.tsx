@@ -65,10 +65,10 @@ const fragmentShader = `
 
     float surface = n1 * 0.5 + n2 * 0.3 + n3 * 0.2;
 
-    // Deep river blue to shallow cyan gradient
-    vec3 deepColor = vec3(0.0, 0.118, 0.22);   // #001e38
-    vec3 shallowColor = vec3(0.0, 0.659, 0.91); // #00a8e8
-    vec3 glowColor = vec3(0.0, 0.898, 1.0);      // #00e5ff
+    // Sparkling crystal azure Ganga river gradient
+    vec3 deepColor = vec3(0.02, 0.45, 0.78);   // #0572c7
+    vec3 shallowColor = vec3(0.35, 0.82, 0.98); // #59d1fa
+    vec3 glowColor = vec3(0.75, 0.95, 1.0);      // luminous white-cyan
 
     // Mix based on elevation + noise
     float depthFactor = smoothstep(-0.08, 0.08, vElevation) * 0.6 + surface * 0.4;
@@ -76,13 +76,13 @@ const fragmentShader = `
 
     // Add bright caustic-like highlights
     float caustic = pow(surface, 3.0) * 1.5;
-    color += glowColor * caustic * 0.3;
+    color += glowColor * caustic * 0.4;
 
     // Subtle edge vignette
     float vignette = smoothstep(0.0, 0.4, vUv.x) * smoothstep(1.0, 0.6, vUv.x);
     vignette *= smoothstep(0.0, 0.3, vUv.y) * smoothstep(1.0, 0.7, vUv.y);
 
-    float alpha = (0.35 + surface * 0.15) * vignette * uOpacity;
+    float alpha = (0.22 + surface * 0.12) * vignette * uOpacity;
 
     gl_FragColor = vec4(color, alpha);
   }
@@ -191,9 +191,9 @@ function AmbientParticles() {
       </bufferGeometry>
       <pointsMaterial
         size={0.03}
-        color="#00a8e8"
+        color="#0284c7"
         transparent
-        opacity={0.6}
+        opacity={0.5}
         sizeAttenuation
         depthWrite={false}
       />
@@ -240,15 +240,15 @@ export function AetherisRiverCanvas() {
         style={{ background: 'transparent' }}
       >
         <CameraController />
-        <ambientLight intensity={0.3} />
-        <directionalLight position={[5, 5, 5]} intensity={0.4} color="#00a8e8" />
+        <ambientLight intensity={0.7} />
+        <directionalLight position={[5, 8, 5]} intensity={0.8} color="#38bdf8" />
         <RiverPlane />
         <AmbientParticles />
       </Canvas>
 
-      {/* Gradient overlays for blending */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-transparent to-slate-950/90 pointer-events-none" />
-      <div className="absolute inset-0 bg-gradient-to-r from-slate-950/40 via-transparent to-slate-950/40 pointer-events-none" />
+      {/* Subtle white ambient gradients for blending */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-transparent to-white/80 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-r from-white/30 via-transparent to-white/30 pointer-events-none" />
     </div>
   );
 }

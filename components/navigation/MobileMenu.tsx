@@ -25,42 +25,50 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     { label: 'Demo Mode', href: '/demo' },
   ];
 
+  const isItemActive = (href: string) => {
+    if (href === '/') return pathname === '/';
+    return pathname === href || pathname.startsWith(href + '/');
+  };
+
   return (
     <Drawer isOpen={isOpen} onClose={onClose} title="Navigation" position="left">
-      <div className="flex flex-col h-full">
-        <Link href="/" onClick={onClose} className="flex items-center gap-3 mb-8 px-2 group">
-          <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-accent/10 border border-accent/20 shadow-[0_0_12px_rgba(0,200,255,0.12)] group-hover:border-accent/40 transition-colors">
-            <Activity className="h-4 w-4 text-accent" />
+      <div className="flex flex-col h-full bg-white">
+        <Link href="/" onClick={onClose} className="flex items-center gap-3 mb-6 px-2 group">
+          <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-sky-50 border border-sky-200 shadow-sm group-hover:border-sky-400 transition-colors">
+            <Activity className="h-4 w-4 text-sky-600" />
           </div>
           <div className="flex flex-col">
-            <span className="text-sm font-bold tracking-[0.2em] text-text-primary leading-tight text-glow group-hover:text-accent transition-colors">JAL PULSE</span>
-            <span className="text-[9px] text-text-muted uppercase tracking-[0.3em] leading-tight">The Pulse of Ganga</span>
+            <span className="text-sm font-bold tracking-[0.2em] text-slate-900 leading-tight group-hover:text-sky-600 transition-colors">JAL PULSE</span>
+            <span className="text-[9px] text-slate-500 uppercase tracking-[0.3em] leading-tight font-medium">The Pulse of Ganga</span>
           </div>
         </Link>
         
-        <nav className="flex flex-col gap-1 flex-1">
+        <nav className="flex flex-col gap-1.5 flex-1">
           {navItems.map((item) => {
-            const isActive = pathname === item.href;
+            const isActive = isItemActive(item.href);
             return (
               <Link
                 key={item.label}
                 href={item.href}
                 onClick={onClose}
-                className={`flex items-center px-4 py-3 rounded-xl text-[11px] tracking-[0.1em] uppercase font-semibold transition-all ${
+                className={`flex items-center justify-between px-4 py-3 rounded-xl text-xs tracking-[0.1em] uppercase font-bold transition-all ${
                   isActive
-                    ? 'bg-accent/10 text-accent border border-accent/15'
-                    : 'text-text-secondary hover:bg-white/[0.04] hover:text-text-primary'
+                    ? 'bg-slate-900 text-white shadow-sm'
+                    : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
                 }`}
               >
-                {item.label}
+                <span>{item.label}</span>
+                {isActive && (
+                  <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse" />
+                )}
               </Link>
             );
           })}
         </nav>
         
-        <div className="flex flex-col gap-4 mt-auto pt-6 border-t border-white/[0.06] px-2">
+        <div className="flex flex-col gap-4 mt-auto pt-6 border-t border-slate-200 px-2">
           <div className="flex items-center justify-between">
-            <span className="text-[9px] text-text-muted uppercase tracking-[0.2em] font-mono">DATA SOURCE</span>
+            <span className="text-[9px] text-slate-500 uppercase tracking-[0.2em] font-mono font-bold">DATA SOURCE</span>
             <DataSourceBadge isSimulated={true} />
           </div>
           <Button 

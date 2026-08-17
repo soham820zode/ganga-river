@@ -65,8 +65,8 @@ export function HistoricalChart() {
 
   if (!selectedParameter || !data.length) {
     return (
-      <div className="w-full h-[500px] flex items-center justify-center bg-surface border-y border-border/50 text-text-muted">
-        Waiting for simulation data...
+      <div className="w-full h-[500px] flex items-center justify-center bg-white border-y border-slate-200 text-slate-400 font-medium">
+        Waiting for stream telemetry data...
       </div>
     );
   }
@@ -81,22 +81,22 @@ export function HistoricalChart() {
     refVal = parseFloat(meta.reference.replace(/[^0-9.]/g, ''));
   }
 
-  const colors = ['#00e5ff', '#ff3366', '#a855f7', '#10b981', '#f59e0b'];
+  const colors = ['#0284c7', '#e11d48', '#8b5cf6', '#059669', '#d97706'];
 
   return (
-    <div className="w-full h-[500px] bg-surface border-y border-border/50 p-4 pt-8">
+    <div className="w-full h-[500px] bg-white border-y border-slate-200 p-4 pt-8 shadow-xs">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" vertical={false} />
+          <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
           <XAxis 
             dataKey="time" 
-            stroke="#6b7280" 
+            stroke="#94a3b8" 
             fontSize={10} 
             tickMargin={10} 
             minTickGap={30}
           />
           <YAxis 
-            stroke="#6b7280" 
+            stroke="#94a3b8" 
             fontSize={10} 
             domain={['auto', 'auto']}
             tickFormatter={(v) => formatValue(v, meta.decimals)}
@@ -105,15 +105,15 @@ export function HistoricalChart() {
             content={({ active, payload, label }) => {
               if (active && payload && payload.length) {
                 return (
-                  <div className="bg-surface-elevated/95 backdrop-blur border border-border/50 rounded-lg p-3 shadow-2xl">
-                    <p className="text-text-muted text-xs mb-2 font-mono">{label}</p>
+                  <div className="bg-white/95 backdrop-blur border border-slate-200 rounded-2xl p-4 shadow-xl">
+                    <p className="text-slate-400 text-xs mb-2 font-mono font-bold">{label}</p>
                     {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                     {payload.map((entry: any, index: number) => (
                       <div key={index} className="flex items-center gap-3 text-sm">
                         <span style={{ color: entry.color }} className="font-bold flex-1">{entry.name}</span>
-                        <span className="font-mono font-bold text-text-primary">
+                        <span className="font-mono font-bold text-slate-900">
                           {formatValue(entry.value, meta.decimals)}
-                          <span className="text-xs text-text-secondary ml-1">{meta.unit}</span>
+                          <span className="text-xs text-slate-500 ml-1">{meta.unit}</span>
                         </span>
                       </div>
                     ))}
@@ -127,10 +127,10 @@ export function HistoricalChart() {
           {refVal !== undefined && !isNaN(refVal) && (
             <ReferenceLine 
               y={refVal} 
-              stroke="#f59e0b" 
+              stroke="#d97706" 
               strokeDasharray="4 4" 
-              opacity={0.5}
-              label={{ position: 'insideTopLeft', value: 'PROTOTYPE REFERENCE', fill: '#f59e0b', fontSize: 10 }}
+              opacity={0.7}
+              label={{ position: 'insideTopLeft', value: 'REFERENCE BENCHMARK', fill: '#d97706', fontSize: 10, fontWeight: 'bold' }}
             />
           )}
 
@@ -139,10 +139,10 @@ export function HistoricalChart() {
               type="monotone" 
               dataKey="value" 
               name={selectedStationId || 'Value'}
-              stroke="#00e5ff" 
-              strokeWidth={2}
+              stroke="#0284c7" 
+              strokeWidth={2.5}
               dot={false}
-              activeDot={{ r: 6, fill: "#00e5ff", stroke: "#0a111a", strokeWidth: 2 }}
+              activeDot={{ r: 6, fill: "#0284c7", stroke: "#ffffff", strokeWidth: 2 }}
               isAnimationActive={false}
             />
           ) : (
@@ -154,8 +154,8 @@ export function HistoricalChart() {
                   dataKey={stId} 
                   name={stId}
                   stroke={colors[i % colors.length]} 
-                  strokeWidth={1}
-                  opacity={0.3}
+                  strokeWidth={1.5}
+                  opacity={0.35}
                   dot={false}
                   isAnimationActive={false}
                 />
@@ -164,10 +164,10 @@ export function HistoricalChart() {
                 type="monotone" 
                 dataKey="Average" 
                 name="Network Average"
-                stroke="#00e5ff" 
+                stroke="#0284c7" 
                 strokeWidth={3}
                 dot={false}
-                activeDot={{ r: 6, fill: "#00e5ff", stroke: "#0a111a", strokeWidth: 2 }}
+                activeDot={{ r: 6, fill: "#0284c7", stroke: "#ffffff", strokeWidth: 2 }}
                 isAnimationActive={false}
               />
             </>

@@ -35,14 +35,14 @@ export function SystemOverview() {
   return (
     <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-4 px-4 md:px-8 py-6">
       {cards.map((card, i) => (
-        <GlassPanel key={i} className="p-5 flex items-center gap-4 rounded-2xl">
-          <div className="p-2.5 rounded-xl bg-accent/8 border border-accent/15 shadow-[0_0_10px_rgba(0,200,255,0.08)]">
+        <GlassPanel key={i} className="p-5 flex items-center gap-4 rounded-2xl bg-white shadow-sm border border-slate-200/80">
+          <div className="p-2.5 rounded-xl bg-sky-50 border border-sky-200 shadow-sm text-sky-600">
             {card.icon}
           </div>
           <div>
-            <div className="text-[9px] text-text-muted uppercase tracking-[0.2em] font-mono">{card.label}</div>
-            <div className={`font-mono text-lg text-text-primary flex items-center gap-2 ${card.isLive ? 'text-accent' : ''}`}>
-              {card.isLive && <span className="w-2 h-2 rounded-full bg-accent shadow-[0_0_6px_rgba(0,200,255,0.6)] animate-pulse"></span>}
+            <div className="text-[9px] text-slate-500 uppercase tracking-[0.2em] font-mono font-medium">{card.label}</div>
+            <div className={`font-mono text-base font-bold text-slate-900 flex items-center gap-2 ${card.isLive ? 'text-sky-600' : ''}`}>
+              {card.isLive && <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.5)] animate-pulse"></span>}
               {card.value}
             </div>
           </div>

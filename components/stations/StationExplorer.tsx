@@ -19,10 +19,10 @@ const FilterChip = ({
 }) => (
   <button
     onClick={() => setStationFilter(type)}
-    className={`px-4 py-1.5 rounded-xl text-[10px] font-bold tracking-[0.15em] uppercase transition-all duration-200 whitespace-nowrap ${
+    className={`px-4 py-1.5 rounded-xl text-[10px] font-bold tracking-[0.12em] uppercase transition-all duration-200 whitespace-nowrap ${
       currentFilter === type 
-        ? 'bg-accent/15 text-accent border border-accent/30 shadow-[0_0_12px_rgba(0,200,255,0.1)]' 
-        : 'bg-white/[0.03] hover:bg-white/[0.06] text-text-muted border border-white/[0.06] hover:border-white/10'
+        ? 'bg-slate-900 text-white shadow-sm' 
+        : 'bg-slate-100 hover:bg-slate-200/80 text-slate-600 border border-slate-200'
     }`}
   >
     {label}
@@ -47,30 +47,30 @@ export function StationExplorer() {
   const selectedStation = MOCK_STATIONS.find(s => s.id === selectedStationId);
 
   return (
-    <div className="w-full h-full flex flex-col bg-background/30 backdrop-blur-2xl border-l border-white/[0.06]">
+    <div className="w-full h-full flex flex-col bg-white/85 backdrop-blur-2xl border-l border-slate-200/80">
       
       {/* Header & Search */}
-      <div className="p-5 border-b border-white/[0.06] flex-shrink-0">
-        <h2 className="text-[10px] font-bold tracking-[0.3em] text-accent mb-1 uppercase text-glow">
+      <div className="p-5 border-b border-slate-200 flex-shrink-0">
+        <h2 className="text-[10px] font-bold tracking-[0.3em] text-sky-600 mb-1 uppercase">
           Monitoring Network
         </h2>
-        <p className="text-[9px] text-text-muted font-mono tracking-wider mb-4">
+        <p className="text-[9px] text-slate-400 font-mono tracking-wider mb-4 font-bold">
           DATA SOURCE: DEMO STREAM
         </p>
         
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
           <input 
             type="text" 
             placeholder="Search stations or regions..." 
             value={stationSearch}
             onChange={(e) => setStationSearch(e.target.value)}
-            className="w-full bg-white/[0.03] border border-white/[0.08] rounded-xl py-2.5 pl-10 pr-8 text-sm text-text-primary placeholder:text-text-muted/60 focus:outline-none focus:border-accent/30 focus:ring-1 focus:ring-accent/20 transition-all"
+            className="w-full bg-white border border-slate-200 rounded-xl py-2.5 pl-10 pr-8 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 shadow-sm transition-all"
           />
           {stationSearch && (
             <button 
               onClick={() => setStationSearch('')}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-primary"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700"
             >
               <X className="w-4 h-4" />
             </button>
@@ -86,9 +86,9 @@ export function StationExplorer() {
       </div>
 
       {/* List */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-2 custom-scrollbar">
+      <div className="flex-1 overflow-y-auto p-4 space-y-2.5 custom-scrollbar">
         {filteredStations.length === 0 ? (
-          <div className="text-center py-8 text-text-muted text-sm">
+          <div className="text-center py-8 text-slate-400 text-sm">
             No stations found matching your criteria.
           </div>
         ) : (
@@ -96,24 +96,24 @@ export function StationExplorer() {
             <button
               key={station.id}
               onClick={() => setSelectedStation(station.id)}
-              className={`w-full text-left p-4 rounded-2xl border transition-all duration-300 ${
+              className={`w-full text-left p-4 rounded-2xl border transition-all duration-200 ${
                 selectedStationId === station.id 
-                  ? 'bg-accent/8 border-accent/30 shadow-[0_0_20px_rgba(0,200,255,0.1)]' 
-                  : 'bg-white/[0.02] hover:bg-white/[0.05] border-white/[0.06] hover:border-white/[0.12]'
+                  ? 'bg-sky-50/90 border-sky-300 shadow-sm ring-1 ring-sky-500/20' 
+                  : 'bg-white hover:bg-slate-50 border-slate-200/80 shadow-sm'
               }`}
             >
               <div className="flex items-start justify-between mb-2">
                 <div>
-                  <h3 className={`font-semibold text-sm ${selectedStationId === station.id ? 'text-accent text-glow' : 'text-text-primary'}`}>
+                  <h3 className={`font-semibold text-sm ${selectedStationId === station.id ? 'text-sky-700' : 'text-slate-900'}`}>
                     {station.name}
                   </h3>
-                  <p className="text-[10px] text-text-secondary flex items-center gap-1 mt-1">
-                    <MapPin className="w-3 h-3" /> {station.region}
+                  <p className="text-[10px] text-slate-500 flex items-center gap-1 mt-1">
+                    <MapPin className="w-3 h-3 text-slate-400" /> {station.region}
                   </p>
                 </div>
                 <StatusBadge status={station.status} />
               </div>
-              <div className="text-[9px] text-text-muted uppercase tracking-[0.15em] font-mono">
+              <div className="text-[9px] text-slate-400 uppercase tracking-[0.15em] font-mono font-medium">
                 {station.lastUpdated}
               </div>
             </button>
@@ -123,7 +123,7 @@ export function StationExplorer() {
 
       {/* Station Preview Panel */}
       {selectedStation && (
-        <div className="flex-shrink-0 p-5 border-t border-white/[0.06] bg-surface-elevated/30 backdrop-blur-2xl">
+        <div className="flex-shrink-0 p-5 border-t border-slate-200 bg-white/95 backdrop-blur-2xl">
           <StationPreview station={selectedStation} onClose={() => setSelectedStation(null)} />
         </div>
       )}
