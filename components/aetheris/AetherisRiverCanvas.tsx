@@ -4,6 +4,20 @@ import React, { useRef, useMemo, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 
+// Suppress Three.js r180+ THREE.Clock deprecation warning emitted by Fiber/Drei internals
+if (typeof window !== 'undefined') {
+  const originalWarn = console.warn;
+  console.warn = (...args: unknown[]) => {
+    if (
+      typeof args[0] === 'string' &&
+      args[0].includes('THREE.Clock: This module has been deprecated')
+    ) {
+      return;
+    }
+    originalWarn(...args);
+  };
+}
+
 /* ─── GLSL Downstream River Shader ─── */
 
 const vertexShader = `
