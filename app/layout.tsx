@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SIH1694 // AETHERIS WATER MATRIX — Ganga River Intelligence",
+  title: "JAL PULSE // Real-Time Ganga River Water Quality Intelligence & Forecasting",
   description: "Real-time environmental intelligence for monitoring, forecasting, and understanding the Ganga river water quality system.",
 };
 

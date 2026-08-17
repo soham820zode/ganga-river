@@ -31,9 +31,18 @@ export default function IntelligenceDashboard() {
     : 'None';
 
   const handleAction = (actionType: string, insight?: Insight) => {
-    if (actionType === 'REVIEW_STATION' && insight?.stationId) {
+    if (insight?.stationId) {
       useJalPulseStore.getState().setSelectedStation(insight.stationId);
-      router.push('/dashboard');
+    }
+    
+    if (actionType === 'REVIEW_STATION' || actionType === 'MONITOR') {
+      router.push('/monitoring');
+    } else if (actionType === 'FORECAST' || actionType === 'VIEW_FORECAST') {
+      router.push('/forecast');
+    } else if (actionType === 'ALERT' || actionType === 'VIEW_ALERTS') {
+      router.push('/alerts');
+    } else {
+      router.push('/monitoring');
     }
   };
 

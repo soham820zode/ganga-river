@@ -96,7 +96,7 @@ export function AlertListItem({ alert }: { alert: Alert }) {
       <div className="flex justify-between items-center bg-white/[0.02] border border-white/[0.06] rounded-xl p-3 mx-1">
         <span className="text-[10px] text-text-secondary flex items-center gap-2">
           <Brain className="w-4 h-4 text-accent" />
-          Powered by Aetheris Environmental Intelligence
+          Powered by Jal Pulse Environmental Intelligence
         </span>
         <Link href={`/intelligence`} className="text-[10px] font-bold text-accent hover:text-accent-hover uppercase tracking-[0.15em] flex items-center gap-1 transition-colors">
           Why this alert?

@@ -1,5 +1,6 @@
 "use client";
 import React, { useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import { Button } from '../ui/Button';
 import { HeroStatus } from './HeroStatus';
 import gsap from 'gsap';
@@ -8,6 +9,7 @@ import { Radio } from 'lucide-react';
 
 export function HeroContent() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
   
   useGSAP(() => {
     if (!containerRef.current) return;
@@ -61,21 +63,21 @@ export function HeroContent() {
         {/* Title */}
         <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tight text-text-primary leading-[1.05] mb-4">
           <div className="hero-title-line overflow-hidden pb-2">
-            <span className="text-glow">AETHERIS</span>
+            <span className="text-glow">JAL</span> <span className="text-accent text-glow-strong">PULSE</span>
           </div>
-          <div className="hero-title-line overflow-hidden pb-2">
-            WATER <span className="text-accent text-glow-strong">MATRIX</span>
+          <div className="hero-title-line overflow-hidden pb-2 text-3xl md:text-5xl lg:text-6xl text-text-secondary">
+            RIVER <span className="text-text-primary">INTELLIGENCE</span>
           </div>
         </h1>
 
         {/* Subtitle */}
         <p className="hero-desc text-[11px] tracking-[0.3em] uppercase text-text-muted font-mono mb-6">
-          Real-Time Ganga River Water Quality Forecasting System
+          Real-Time Ganga River Water Quality Forecasting & Monitoring System
         </p>
         
         {/* Description */}
         <p className="hero-desc text-lg md:text-xl text-text-secondary max-w-2xl mb-10 leading-relaxed">
-          Environmental intelligence platform for monitoring, forecasting, and understanding the changing pulse of the Ganga river system.
+          Environmental intelligence platform for monitoring, forecasting, and understanding the changing pulse of the Ganga river corridor.
         </p>
         
         {/* CTAs */}
@@ -83,7 +85,7 @@ export function HeroContent() {
           <Button variant="primary" size="lg" onClick={handleScrollToMonitoring}>
             EXPLORE LIVE DATA
           </Button>
-          <Button variant="outline" size="lg">
+          <Button variant="outline" size="lg" onClick={() => router.push('/intelligence')}>
             VIEW METHODOLOGY
           </Button>
         </div>

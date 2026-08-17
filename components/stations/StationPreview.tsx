@@ -1,9 +1,11 @@
 "use client";
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import { MockStation } from '../../config/stations';
 import { Button } from '../ui/Button';
 import { X, Activity } from 'lucide-react';
 import { StatusBadge } from '../ui/StatusBadge';
+import { useJalPulseStore } from '../../store/useJalPulseStore';
 
 interface StationPreviewProps {
   station: MockStation;
@@ -11,6 +13,14 @@ interface StationPreviewProps {
 }
 
 export function StationPreview({ station, onClose }: StationPreviewProps) {
+  const router = useRouter();
+  const setSelectedStation = useJalPulseStore(state => state.setSelectedStation);
+
+  const handleOpenStation = () => {
+    setSelectedStation(station.id);
+    router.push('/monitoring');
+  };
+
   return (
     <div className="flex flex-col gap-4 relative">
       <button 
@@ -43,9 +53,13 @@ export function StationPreview({ station, onClose }: StationPreviewProps) {
         </div>
       </div>
 
-      <Button variant="primary" className="w-full flex items-center justify-center gap-2">
+      <Button 
+        variant="primary" 
+        onClick={handleOpenStation}
+        className="w-full flex items-center justify-center gap-2"
+      >
         <Activity className="w-4 h-4" />
-        OPEN STATION
+        OPEN STATION MONITOR
       </Button>
     </div>
   );
