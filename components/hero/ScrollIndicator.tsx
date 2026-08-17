@@ -4,7 +4,7 @@ import { ChevronDown } from 'lucide-react';
 
 export function ScrollIndicator() {
   return (
-    <div className="hero-element absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-3 opacity-0">
+    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-3 animate-fade-in">
       <span className="text-[9px] tracking-[0.4em] uppercase text-text-muted font-mono">
         Scroll to navigate Ganga current
       </span>

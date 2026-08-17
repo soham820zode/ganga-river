@@ -147,6 +147,7 @@ function RiverPlane() {
 function AmbientParticles() {
   const count = 200;
   const meshRef = useRef<THREE.Points>(null);
+  const elapsedTime = useRef(0);
 
   const positions = useMemo(() => {
     const arr = new Float32Array(count * 3);
@@ -158,11 +159,12 @@ function AmbientParticles() {
     return arr;
   }, []);
 
-  useFrame(({ clock }) => {
+  useFrame((_, delta) => {
     if (!meshRef.current) return;
+    elapsedTime.current += delta;
     const geo = meshRef.current.geometry;
     const posAttr = geo.attributes.position as THREE.BufferAttribute;
-    const t = clock.elapsedTime;
+    const t = elapsedTime.current;
 
     for (let i = 0; i < count; i++) {
       // Slow drift downstream (positive Y is "down-river")

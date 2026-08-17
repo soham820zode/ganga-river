@@ -10,10 +10,16 @@ export function HeroContent() {
   const containerRef = useRef<HTMLDivElement>(null);
   
   useGSAP(() => {
+    if (!containerRef.current) return;
+
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     
     if (prefersReducedMotion) {
-      gsap.set('.hero-element', { opacity: 1, y: 0, clipPath: 'inset(0% 0% 0% 0%)' });
+      gsap.set('.hero-eyebrow, .hero-title-line, .hero-desc, .hero-cta, .hero-status', { 
+        opacity: 1, 
+        y: 0, 
+        clipPath: 'inset(0% 0% 0% 0%)' 
+      });
       return;
     }
 
@@ -28,8 +34,7 @@ export function HeroContent() {
       .to('.hero-title-line', { clipPath: 'inset(0% 0% 0% 0%)', y: 0, duration: 1.2, stagger: 0.15 }, "-=0.6")
       .to('.hero-desc', { opacity: 1, y: 0, duration: 1 }, "-=0.8")
       .to('.hero-cta', { opacity: 1, y: 0, duration: 0.8, stagger: 0.1 }, "-=0.6")
-      .to('.hero-status', { opacity: 1, y: 0, duration: 0.8 }, "-=0.4")
-      .to('.hero-element', { opacity: 1, duration: 1 }, "-=0.4"); // Scroll indicator
+      .to('.hero-status', { opacity: 1, y: 0, duration: 0.8 }, "-=0.4");
   }, { scope: containerRef });
 
   const handleScrollToMonitoring = () => {

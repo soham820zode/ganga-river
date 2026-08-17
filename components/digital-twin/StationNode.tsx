@@ -33,10 +33,13 @@ export function StationNode({ station }: StationNodeProps) {
   const statusColor = getStatusColor(station.status);
   const displayColor = isSelected || hovered ? '#00e5ff' : statusColor;
 
-  useFrame(({ clock }) => {
+  const elapsedTime = useRef(0);
+
+  useFrame((_, delta) => {
     if (ringRef.current) {
+      elapsedTime.current += delta;
       if (isSelected) {
-        ringRef.current.scale.setScalar(1 + Math.sin(clock.elapsedTime * 4) * 0.2);
+        ringRef.current.scale.setScalar(1 + Math.sin(elapsedTime.current * 4) * 0.2);
         (ringRef.current.material as THREE.Material).opacity = 0.8;
       } else {
         ringRef.current.scale.setScalar(1);

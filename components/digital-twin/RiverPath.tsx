@@ -26,10 +26,13 @@ export function RiverPath() {
     return new THREE.CatmullRomCurve3(points, false, 'catmullrom', 0.5);
   }, []);
 
+  const elapsedTime = useRef(0);
+
   // Subtle pulsing animation on the river material
-  useFrame(({ clock }) => {
+  useFrame((_, delta) => {
     if (materialRef.current) {
-      materialRef.current.emissiveIntensity = 0.5 + Math.sin(clock.elapsedTime * 0.5) * 0.2;
+      elapsedTime.current += delta;
+      materialRef.current.emissiveIntensity = 0.5 + Math.sin(elapsedTime.current * 0.5) * 0.2;
     }
   });
 
