@@ -1,0 +1,1497 @@
+---
+
+name: jal-pulse-engineering
+description: Specialized engineering skill for building the Jal Pulse environmental intelligence platform — a premium real-time Ganga river monitoring, water-quality visualization, forecasting, anomaly detection, alerting, digital-twin, and cinematic dashboard application. Use this skill whenever implementing, modifying, debugging, reviewing, optimizing, or extending the Jal Pulse project.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# JAL PULSE — MASTER ENGINEERING SKILL
+
+## PROJECT IDENTITY
+
+Project Name:
+
+Jal Pulse
+
+Slogan:
+
+The Pulse of Ganga
+
+Project Category:
+
+Environmental Intelligence / River Monitoring / Water Quality Forecasting / Digital Twin
+
+Primary Goal:
+
+Build a premium, interactive, technically credible prototype for monitoring and forecasting Ganga river water quality.
+
+The application should communicate:
+
+* real-time environmental intelligence
+* river monitoring
+* water-quality analysis
+* forecasting
+* anomaly detection
+* alerts
+* response workflows
+* digital-twin visualization
+* scientific transparency
+
+The experience should feel like a serious environmental intelligence platform rather than a generic analytics dashboard.
+
+---
+
+# 1. CORE ENGINEERING PRINCIPLES
+
+Always follow these principles.
+
+## Principle 1 — Never fabricate science
+
+The application may use simulated/demo data.
+
+However:
+
+* never claim simulated readings are real sensor measurements
+* never claim simulated forecasts are scientifically validated
+* never fabricate research findings
+* never invent government certifications
+* never invent sensor deployments
+* never invent model accuracy
+* never invent pollution causes
+* never claim official Water Quality Index calculations unless an authoritative methodology is actually implemented
+
+Whenever simulation is being used, clearly identify it.
+
+Preferred labels:
+
+DEMO DATA
+
+SIMULATED DATA STREAM
+
+PROTOTYPE FORECAST
+
+DEMO COMPOSITE INDICATOR
+
+PROTOTYPE REFERENCE THRESHOLD
+
+---
+
+# 2. ENGINEERING PRIORITY
+
+When making implementation decisions, prioritize in this order:
+
+1. Correctness
+2. Data integrity
+3. Maintainability
+4. Performance
+5. Accessibility
+6. Responsive behavior
+7. Visual quality
+8. Animation
+
+Never sacrifice application correctness for visual effects.
+
+---
+
+# 3. EXISTING PROJECT FIRST
+
+Before changing the codebase:
+
+Read:
+
+* README.md
+* CLAUDE.md
+* AGENTS.md
+* package.json
+* tsconfig.json
+* next.config.*
+* Tailwind configuration
+* all relevant existing components
+* existing app routes
+* existing hooks
+* existing stores
+* existing utilities
+
+Determine:
+
+* what already exists
+* what is incomplete
+* what can be reused
+* what should be refactored
+* what dependencies are already installed
+
+NEVER replace existing functionality blindly.
+
+NEVER rewrite the entire application without first understanding the repository.
+
+---
+
+# 4. TARGET TECHNOLOGY
+
+Preferred stack:
+
+Frontend:
+
+* Next.js
+* React
+* TypeScript
+* Tailwind CSS
+
+3D:
+
+* Three.js
+* React Three Fiber
+* Drei
+
+Animation:
+
+* GSAP
+* Lenis
+
+Visualization:
+
+* D3.js when necessary
+* Recharts where appropriate
+
+Map:
+
+* MapLibre GL or Leaflet
+
+State:
+
+* Zustand
+
+Architecture:
+
+* modular
+* typed
+* component-driven
+* API-ready
+
+---
+
+# 5. ARCHITECTURAL STRUCTURE
+
+Prefer the following architecture:
+
+app/
+page.tsx
+dashboard/
+monitoring/
+stations/
+forecast/
+alerts/
+methodology/
+api/
+
+components/
+layout/
+navigation/
+hero/
+digital-twin/
+map/
+stations/
+water-quality/
+charts/
+forecast/
+alerts/
+notifications/
+ui/
+
+lib/
+data/
+simulation/
+forecasting/
+alerts/
+map/
+utils/
+
+hooks/
+useRiverData.ts
+useSimulation.ts
+useForecast.ts
+useAlerts.ts
+useReducedMotion.ts
+useDeviceTier.ts
+
+store/
+useJalPulseStore.ts
+
+types/
+station.ts
+water-quality.ts
+forecast.ts
+alert.ts
+notification.ts
+
+config/
+stations.ts
+thresholds.ts
+simulation.ts
+site.ts
+
+public/
+assets/
+
+Modify this architecture when the existing repository has a better established structure.
+
+---
+
+# 6. DESIGN DIRECTION
+
+The visual language must be:
+
+premium
+
+scientific
+
+cinematic
+
+minimal
+
+technical
+
+environmental
+
+Use:
+
+* deep navy
+* near-black
+* charcoal
+* water cyan
+* teal
+* subtle green
+* amber
+* red for critical states
+
+Avoid:
+
+* childish gradients
+* excessive glassmorphism
+* generic dashboard templates
+* rainbow charts
+* unnecessary rounded cards
+* visual clutter
+
+Glass surfaces should be subtle.
+
+The interface should resemble a:
+
+River Intelligence Command Center.
+
+---
+
+# 7. BRANDING
+
+Use:
+
+JAL PULSE
+
+The Pulse of Ganga
+
+Do not use:
+
+GangaSense
+
+for new branding or new UI unless an existing legacy reference must remain temporarily.
+
+---
+
+# 8. TYPOGRAPHY
+
+Preferred:
+
+Geist
+
+Inter
+
+Space Grotesk
+
+IBM Plex Sans
+
+Use a strong hierarchy.
+
+Large display typography:
+
+hero
+
+section titles
+
+major metrics
+
+Smaller typography:
+
+metadata
+
+timestamps
+
+labels
+
+technical information
+
+---
+
+# 9. DATA ARCHITECTURE
+
+Separate data generation from UI.
+
+Never generate random values directly inside React presentation components.
+
+Use:
+
+simulation/
+
+for simulation logic.
+
+Use:
+
+forecasting/
+
+for prediction logic.
+
+Use:
+
+alerts/
+
+for alert detection.
+
+Use:
+
+data/
+
+for provider abstractions.
+
+---
+
+# 10. DATA PROVIDER ARCHITECTURE
+
+Use an abstraction such as:
+
+interface RiverDataProvider
+
+with methods conceptually equivalent to:
+
+getStations()
+
+getCurrentReadings()
+
+getHistoricalData()
+
+getForecast()
+
+getAlerts()
+
+sendNotification()
+
+Prototype:
+
+MockRiverDataProvider
+
+Future:
+
+ApiRiverDataProvider
+
+WebSocketRiverDataProvider
+
+This allows real sensor integration later without rewriting the frontend.
+
+---
+
+# 11. MONITORING PARAMETERS
+
+Core prototype parameters:
+
+pH
+
+Dissolved Oxygen
+
+BOD
+
+Temperature
+
+Turbidity
+
+Use typed configuration.
+
+Units must always be displayed.
+
+Example:
+
+pH
+
+DO → mg/L
+
+BOD → mg/L
+
+Temperature → °C
+
+Turbidity → NTU
+
+---
+
+# 12. STATIONS
+
+Prototype station network can include:
+
+Haridwar
+
+Kanpur
+
+Prayagraj
+
+Varanasi
+
+Patna
+
+Additional downstream stations may be added when useful.
+
+Unless real data has been integrated, station measurements must be labeled as:
+
+DEMO / SIMULATED
+
+---
+
+# 13. THRESHOLDS
+
+Thresholds must be configurable.
+
+Do not hardcode threshold values inside components.
+
+Put them in:
+
+config/thresholds.ts
+
+Use naming such as:
+
+prototypeReferenceRange
+
+instead of implying legal or universal standards.
+
+---
+
+# 14. SIMULATION ENGINE
+
+Simulation must look realistic rather than purely random.
+
+Use:
+
+baseline
+
+trend
+
+sinusoidal variation
+
+controlled noise
+
+optional anomaly injection
+
+Example conceptual model:
+
+value =
+baseline
++
+trend
++
+periodicVariation
++
+controlledNoise
++
+anomalyComponent
+
+Update frequency:
+
+approximately every 5 seconds.
+
+Historical buffer:
+
+48–72 hours minimum for prototype demonstration.
+
+---
+
+# 15. FORECAST ENGINE
+
+Current prototype forecast may use:
+
+moving average
+
+trend extrapolation
+
+sinusoidal variation
+
+controlled noise
+
+This is a prototype forecasting mechanism.
+
+Do NOT call it:
+
+LSTM
+
+AI prediction
+
+deep-learning forecast
+
+machine-learning model
+
+unless such a model has actually been implemented and validated.
+
+UI terminology:
+
+Prototype Forecast
+
+Trend Forecast
+
+Demo Forecast Model
+
+Future architecture should support:
+
+ARIMA
+
+Prophet
+
+LSTM
+
+XGBoost
+
+Temporal models
+
+real trained models
+
+---
+
+# 16. ALERT ENGINE
+
+Alert engine should be independent of UI.
+
+Implement concepts similar to:
+
+checkThresholds()
+
+checkAnomalies()
+
+createAlert()
+
+deduplicateAlert()
+
+acknowledgeAlert()
+
+resolveAlert()
+
+Alert severity:
+
+INFO
+
+WARNING
+
+CRITICAL
+
+Prevent duplicate alert spam.
+
+Use cooldown/de-duplication logic.
+
+---
+
+# 17. NOTIFICATION ENGINE
+
+Support:
+
+toast notifications
+
+browser notifications
+
+activity log
+
+simulated team notification
+
+Always make it clear when a notification is simulated.
+
+Example:
+
+SIMULATED RESPONSE NOTIFICATION
+
+Future integrations:
+
+Twilio
+
+email
+
+WhatsApp Business API
+
+webhooks
+
+SMS
+
+---
+
+# 18. DIGITAL TWIN
+
+The digital-twin experience should visualize:
+
+Ganga river
+
+monitoring stations
+
+data pulses
+
+water-flow particles
+
+parameter conditions
+
+Use Three.js / React Three Fiber where appropriate.
+
+Do not make the scene visually impressive at the expense of:
+
+* FPS
+* accessibility
+* load time
+* mobile performance
+
+Implement quality tiers.
+
+---
+
+# 19. DEVICE ADAPTATION
+
+Implement device-aware rendering.
+
+High capability:
+
+full 3D
+
+more particles
+
+higher rendering quality
+
+Medium:
+
+reduced particles
+
+moderate effects
+
+Low:
+
+simplified visualization
+
+Static/2D fallback where necessary
+
+Also support:
+
+prefers-reduced-motion
+
+---
+
+# 20. MAP
+
+The map should support:
+
+station markers
+
+selection
+
+status visualization
+
+focus
+
+popup/detail panel
+
+parameter visualization
+
+Markers must communicate state through:
+
+color
+
+icon
+
+text
+
+shape
+
+not color alone.
+
+---
+
+# 21. DASHBOARD
+
+The dashboard should eventually support:
+
+system status
+
+station overview
+
+parameter cards
+
+interactive map
+
+historical charts
+
+forecast charts
+
+alerts
+
+notifications
+
+data-source indicator
+
+demo controls
+
+---
+
+# 22. USER INTERACTION
+
+Interactive elements must actually work.
+
+Examples:
+
+station click
+
+parameter click
+
+chart hover
+
+forecast station selection
+
+forecast parameter selection
+
+alert acknowledgement
+
+notify team
+
+demo scenario
+
+reset simulation
+
+map focus
+
+navigation
+
+mobile menu
+
+No fake buttons.
+
+---
+
+# 23. ROUTING
+
+Preferred routes:
+
+/
+
+/dashboard
+
+/monitoring
+
+/stations
+
+/stations/[id]
+
+/forecast
+
+/alerts
+
+/methodology
+
+Use existing routing conventions if already established.
+
+---
+
+# 24. COMPONENT DESIGN
+
+Favor small reusable components.
+
+Examples:
+
+Navbar
+
+Hero
+
+RiverScene
+
+DigitalTwin
+
+StationMap
+
+StationCard
+
+StationDetail
+
+ParameterCard
+
+ForecastChart
+
+HistoricalChart
+
+AlertCard
+
+AlertCenter
+
+NotificationCenter
+
+SystemStatus
+
+DataSourceBadge
+
+DemoControls
+
+Methodology
+
+Footer
+
+Do not create giant components unless there is a strong reason.
+
+---
+
+# 25. STATE MANAGEMENT
+
+Central state should hold only shared application state.
+
+Potential state:
+
+selectedStation
+
+selectedParameter
+
+stations
+
+currentReadings
+
+historicalReadings
+
+forecasts
+
+alerts
+
+notifications
+
+simulationStatus
+
+notificationPermission
+
+demoScenario
+
+mapMode
+
+digitalTwinMode
+
+Avoid duplicating state across components.
+
+---
+
+# 26. REAL-TIME UPDATE MODEL
+
+Approximately every 5 seconds:
+
+update readings
+
+update history
+
+update station status
+
+update aggregate values
+
+update alert engine
+
+Approximately every 15 seconds:
+
+refresh demo forecast
+
+Do not unnecessarily rerender the entire page.
+
+---
+
+# 27. PERFORMANCE
+
+Always monitor:
+
+React rerenders
+
+Three.js render load
+
+chart updates
+
+memory
+
+event listeners
+
+timers
+
+animation loops
+
+data growth
+
+Clean up:
+
+setInterval
+
+setTimeout
+
+requestAnimationFrame
+
+event listeners
+
+chart instances
+
+WebSocket connections
+
+when components unmount.
+
+---
+
+# 28. CHARTS
+
+Charts should prioritize readability.
+
+Use:
+
+historical line
+
+forecast line
+
+reference threshold
+
+confidence band where available
+
+clear tooltip
+
+time axis
+
+Units
+
+Legend
+
+Do not overload charts with unnecessary decoration.
+
+---
+
+# 29. RESPONSIVE DESIGN
+
+Desktop:
+
+large command center
+
+Tablet:
+
+adaptive two-column
+
+Mobile:
+
+single-column
+
+On mobile:
+
+* minimize map height
+* stack cards
+* convert modals to full-screen sheets
+* keep charts usable
+* simplify 3D
+
+---
+
+# 30. ACCESSIBILITY
+
+Support:
+
+keyboard navigation
+
+focus states
+
+ARIA labels
+
+semantic HTML
+
+screen reader meaning
+
+contrast
+
+reduced motion
+
+Do not communicate important state by color alone.
+
+---
+
+# 31. SCIENTIFIC TRANSPARENCY
+
+The interface should include a methodology/data section describing:
+
+* data source
+* simulated vs real
+* forecast method
+* thresholds
+* limitations
+* future sensor integration
+
+Use honest language.
+
+Example:
+
+"This prototype uses simulated monitoring data for demonstration."
+
+---
+
+# 32. DEMO MODE
+
+Provide controlled scenarios.
+
+Examples:
+
+Normal Conditions
+
+BOD Increase
+
+Low DO Event
+
+High Turbidity
+
+Multi-Station Alert
+
+Demo controls should be hidden from normal presentation view.
+
+---
+
+# 33. DEVELOPMENT WORKFLOW
+
+Work incrementally.
+
+For every task:
+
+1. inspect relevant files
+2. understand existing implementation
+3. make the smallest coherent change
+4. run validation
+5. fix errors
+6. inspect result
+7. summarize work
+
+Do not make unrelated changes.
+
+---
+
+# 34. VALIDATION
+
+Whenever meaningful code changes are made, use the project's available validation commands.
+
+Typically:
+
+npm run lint
+
+npm run build
+
+Also use:
+
+npm run test
+
+when tests exist.
+
+Do not claim success unless validation actually passes.
+
+---
+
+# 35. ERROR HANDLING
+
+Do not silently swallow errors.
+
+Handle:
+
+missing data
+
+invalid readings
+
+forecast failure
+
+map failure
+
+notification denial
+
+simulation failure
+
+API failure
+
+Show useful UI states.
+
+---
+
+# 36. SECURITY
+
+Never:
+
+commit secrets
+
+hardcode API keys
+
+expose credentials
+
+trust unvalidated external data
+
+Use environment variables where required.
+
+---
+
+# 37. CODE STYLE
+
+Prefer:
+
+strict TypeScript
+
+explicit interfaces
+
+small pure functions
+
+clear naming
+
+centralized constants
+
+reusable utilities
+
+minimal comments
+
+Comments should explain why, not restate what the code does.
+
+---
+
+# 38. FILE MODIFICATION RULE
+
+Before editing:
+
+read the existing file.
+
+Before replacing a component:
+
+check whether it is imported elsewhere.
+
+Before removing a dependency:
+
+verify that nothing uses it.
+
+Before creating a new abstraction:
+
+check whether an existing abstraction already solves the problem.
+
+---
+
+# 39. VISUAL QUALITY RULE
+
+When implementing UI:
+
+first establish:
+
+layout
+
+spacing
+
+typography
+
+hierarchy
+
+interaction
+
+then add:
+
+motion
+
+lighting
+
+glow
+
+3D
+
+particles
+
+Do not use visual effects to hide poor UX.
+
+---
+
+# 40. ANIMATION RULE
+
+Animations should communicate:
+
+change
+
+focus
+
+transition
+
+status
+
+depth
+
+Avoid animation purely for decoration.
+
+Respect:
+
+prefers-reduced-motion
+
+---
+
+# 41. NO PLACEHOLDER IMPLEMENTATIONS
+
+Do not create:
+
+fake API calls
+
+fake model accuracy
+
+fake sensor claims
+
+fake notification integrations
+
+fake government data
+
+fake AI analysis
+
+unless explicitly marked as simulation/demo behavior.
+
+A feature can be simulated, but the UI must say so.
+
+---
+
+# 42. CHANGE MANAGEMENT
+
+When implementing a new feature:
+
+Identify:
+
+files to create
+
+files to modify
+
+dependencies required
+
+potential regressions
+
+Then implement.
+
+Do not randomly restructure the repository.
+
+---
+
+# 43. DEBUGGING WORKFLOW
+
+When an error occurs:
+
+1. reproduce it
+2. inspect the actual error
+3. identify root cause
+4. implement the smallest correct fix
+5. rerun validation
+6. verify related functionality
+
+Never mask an error simply to make the build pass.
+
+---
+
+# 44. BROWSER VERIFICATION
+
+When browser tooling is available:
+
+verify:
+
+* initial page
+* navigation
+* map
+* charts
+* station interaction
+* alerts
+* responsive behavior
+* console errors
+
+---
+
+# 45. HACKATHON PRESENTATION QUALITY
+
+Jal Pulse should have a compelling demo narrative:
+
+WHERE IS THE RIVER?
+
+↓
+
+WHAT ARE WE MONITORING?
+
+↓
+
+WHAT IS HAPPENING NOW?
+
+↓
+
+IS SOMETHING ABNORMAL?
+
+↓
+
+WHAT COULD HAPPEN NEXT?
+
+↓
+
+WHO NEEDS TO RESPOND?
+
+↓
+
+HOW CAN THIS SCALE TO REAL INFRASTRUCTURE?
+
+Every major UI section should support this narrative.
+
+---
+
+# 46. IMPLEMENTATION PHASES
+
+When asked to build Jal Pulse, follow this broad sequence:
+
+PHASE 1
+Repository audit and foundation
+
+PHASE 2
+Design system
+
+PHASE 3
+Hero and landing experience
+
+PHASE 4
+Digital twin
+
+PHASE 5
+Map and station network
+
+PHASE 6
+Simulation engine
+
+PHASE 7
+Monitoring dashboard
+
+PHASE 8
+Historical analytics
+
+PHASE 9
+Forecast engine
+
+PHASE 10
+Alert intelligence
+
+PHASE 11
+Notification system
+
+PHASE 12
+Demo scenarios
+
+PHASE 13
+Responsive and accessibility
+
+PHASE 14
+Performance optimization
+
+PHASE 15
+Final testing and production build
+
+Do not jump directly to later phases unless explicitly requested.
+
+---
+
+# 47. PHASE DISCIPLINE
+
+When working on one phase:
+
+DO NOT implement future phases unless required to make the current phase function.
+
+For example:
+
+If implementing the design system:
+
+do not implement the forecast engine.
+
+If implementing the forecast engine:
+
+do not redesign the entire homepage.
+
+Keep changes scoped.
+
+---
+
+# 48. USER-FACING LANGUAGE
+
+Preferred terminology:
+
+Jal Pulse
+
+The Pulse of Ganga
+
+River Intelligence
+
+Monitoring Network
+
+Water Quality
+
+Prototype Forecast
+
+Environmental Intelligence
+
+Response Workflow
+
+Demo Data
+
+Simulated Data Stream
+
+Avoid exaggerated terms such as:
+
+"perfect prediction"
+
+"100% accurate"
+
+"real pollution source detection"
+
+"official national monitoring system"
+
+unless these claims are actually supported.
+
+---
+
+# 49. FINAL QUALITY STANDARD
+
+Every finished feature should satisfy:
+
+FUNCTIONAL
+
+VISUAL
+
+RESPONSIVE
+
+ACCESSIBLE
+
+PERFORMANT
+
+TYPED
+
+VALIDATED
+
+SCIENTIFICALLY HONEST
+
+---
+
+# 50. FINAL RULE
+
+You are not merely generating code.
+
+You are acting as the engineering system responsible for maintaining the Jal Pulse project.
+
+Before making changes:
+
+UNDERSTAND.
+
+While making changes:
+
+FOLLOW THE ARCHITECTURE.
+
+After making changes:
+
+VALIDATE.
+
+When uncertain:
+
+INSPECT THE EXISTING CODE FIRST.
+
+Never invent facts.
+
+Never fabricate scientific claims.
+
+Never hide errors.
+
+Never break existing working functionality unnecessarily.
+
+Build Jal Pulse as a polished environmental intelligence platform worthy of a serious hackathon demonstration.
+
+JAL PULSE
+
+The Pulse of Ganga
