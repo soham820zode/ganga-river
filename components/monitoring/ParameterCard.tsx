@@ -70,12 +70,12 @@ export function ParameterCard({ parameter, value, status, trend, lastUpdated, is
         </div>
         <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-[9px] font-bold uppercase tracking-[0.15em] border ${statusColor}`}>
           {StatusIcon && <StatusIcon className="w-3 h-3" />}
-          <span>{status}</span>
+          <span suppressHydrationWarning>{status}</span>
         </div>
       </div>
 
       <div className="flex items-baseline gap-2 mb-4">
-        <span className={`text-3xl font-mono font-bold ${valueColor}`}>{formatValue(value, meta.decimals)}</span>
+        <span suppressHydrationWarning className={`text-3xl font-mono font-bold ${valueColor}`}>{formatValue(value, meta.decimals)}</span>
         <span className="text-sm text-slate-500 font-semibold">{meta.unit}</span>
       </div>
 

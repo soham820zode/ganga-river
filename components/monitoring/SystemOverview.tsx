@@ -41,7 +41,7 @@ export function SystemOverview() {
           </div>
           <div>
             <div className="text-[9px] text-slate-500 uppercase tracking-[0.2em] font-mono font-medium">{card.label}</div>
-            <div className={`font-mono text-base font-bold text-slate-900 flex items-center gap-2 ${card.isLive ? 'text-sky-600' : ''}`}>
+            <div suppressHydrationWarning className={`font-mono text-base font-bold text-slate-900 flex items-center gap-2 ${card.isLive ? 'text-sky-600' : ''}`}>
               {card.isLive && <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.5)] animate-pulse"></span>}
               {card.value}
             </div>

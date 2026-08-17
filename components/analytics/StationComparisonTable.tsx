@@ -57,10 +57,10 @@ export function StationComparisonTable() {
                   <div className="font-bold text-slate-900">{row.name}</div>
                   <div className="text-xs text-slate-400 font-mono font-medium">{row.id}</div>
                 </td>
-                <td className="p-4 text-right font-mono text-slate-600 font-medium">{formatValue(row.min, meta.decimals)}</td>
-                <td className="p-4 text-right font-mono font-bold text-sky-700">{formatValue(row.avg, meta.decimals)}</td>
-                <td className="p-4 text-right font-mono text-slate-600 font-medium">{formatValue(row.max, meta.decimals)}</td>
-                <td className={`p-4 text-right font-mono font-bold border-l border-slate-200 ${row.status === 'CRITICAL' ? 'text-rose-600' : row.status === 'WARNING' ? 'text-amber-600' : 'text-slate-900'}`}>
+                <td suppressHydrationWarning className="p-4 text-right font-mono text-slate-600 font-medium">{formatValue(row.min, meta.decimals)}</td>
+                <td suppressHydrationWarning className="p-4 text-right font-mono font-bold text-sky-700">{formatValue(row.avg, meta.decimals)}</td>
+                <td suppressHydrationWarning className="p-4 text-right font-mono text-slate-600 font-medium">{formatValue(row.max, meta.decimals)}</td>
+                <td suppressHydrationWarning className={`p-4 text-right font-mono font-bold border-l border-slate-200 ${row.status === 'CRITICAL' ? 'text-rose-600' : row.status === 'WARNING' ? 'text-amber-600' : 'text-slate-900'}`}>
                   {formatValue(row.current, meta.decimals)}
                 </td>
               </tr>

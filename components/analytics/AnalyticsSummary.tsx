@@ -33,13 +33,13 @@ export function AnalyticsSummary() {
       <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
         <div className="text-[11px] text-slate-500 uppercase tracking-wider mb-2 font-bold">{analyticsTimeRange} Average</div>
         <div className="flex items-baseline gap-2">
-          <span className="text-2xl font-mono text-slate-900 font-bold">{formatValue(stats.avg, meta.decimals)}</span>
+          <span suppressHydrationWarning className="text-2xl font-mono text-slate-900 font-bold">{formatValue(stats.avg, meta.decimals)}</span>
           <span className="text-xs text-slate-500">{meta.unit}</span>
         </div>
       </div>
       <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
         <div className="text-[11px] text-slate-500 uppercase tracking-wider mb-2 font-bold">Net Change</div>
-        <div className={`flex items-center gap-2 text-lg font-mono font-bold ${trendColor}`}>
+        <div suppressHydrationWarning className={`flex items-center gap-2 text-lg font-mono font-bold ${trendColor}`}>
           <TrendIcon className="w-5 h-5" />
           {stats.change > 0 ? '+' : ''}{formatValue(stats.change, 1)}%
         </div>
@@ -47,13 +47,13 @@ export function AnalyticsSummary() {
       <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
         <div className="text-[11px] text-slate-500 uppercase tracking-wider mb-2 font-bold">Maximum</div>
         <div className="flex items-baseline gap-2">
-          <span className="text-2xl font-mono text-slate-900 font-bold">{formatValue(stats.max, meta.decimals)}</span>
+          <span suppressHydrationWarning className="text-2xl font-mono text-slate-900 font-bold">{formatValue(stats.max, meta.decimals)}</span>
           <span className="text-xs text-slate-500">{meta.unit}</span>
         </div>
       </div>
       <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
         <div className="text-[11px] text-slate-500 uppercase tracking-wider mb-2 font-bold">Reference</div>
-        <div className="text-base font-mono text-slate-800 font-bold mt-1">
+        <div suppressHydrationWarning className="text-base font-mono text-slate-800 font-bold mt-1">
           {meta.reference}
         </div>
       </div>
@@ -61,7 +61,7 @@ export function AnalyticsSummary() {
         <div className="text-[11px] text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-1.5 font-bold">
           <AlertTriangle className="w-3.5 h-3.5 text-amber-600" /> Threshold Crossings
         </div>
-        <div className={`text-2xl font-mono font-bold ${stats.crossings > 0 ? 'text-amber-600' : 'text-slate-900'}`}>
+        <div suppressHydrationWarning className={`text-2xl font-mono font-bold ${stats.crossings > 0 ? 'text-amber-600' : 'text-slate-900'}`}>
           {stats.crossings} <span className="text-xs text-slate-500 font-sans font-normal uppercase ml-1">Events</span>
         </div>
       </div>

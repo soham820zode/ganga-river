@@ -25,20 +25,20 @@ export function ForecastSummary() {
       <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
         <div className="text-[11px] text-slate-500 uppercase tracking-wider mb-2 font-bold">Current Observation</div>
         <div className="flex items-baseline gap-2">
-          <span className="text-2xl font-mono text-slate-900 font-bold">{formatValue(current, meta.decimals)}</span>
+          <span suppressHydrationWarning className="text-2xl font-mono text-slate-900 font-bold">{formatValue(current, meta.decimals)}</span>
           <span className="text-xs text-slate-500">{meta.unit}</span>
         </div>
       </div>
       <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm border-l-4 border-l-amber-500">
         <div className="text-[11px] text-slate-500 uppercase tracking-wider mb-2 font-bold">Projected Endpoint ({horizon})</div>
         <div className="flex items-baseline gap-2">
-          <span className="text-2xl font-mono text-amber-600 font-bold">{formatValue(projected, meta.decimals)}</span>
+          <span suppressHydrationWarning className="text-2xl font-mono text-amber-600 font-bold">{formatValue(projected, meta.decimals)}</span>
           <span className="text-xs text-slate-500">{meta.unit}</span>
         </div>
       </div>
       <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
         <div className="text-[11px] text-slate-500 uppercase tracking-wider mb-2 font-bold">Expected Trend</div>
-        <div className={`flex items-center gap-2 text-lg font-mono font-bold ${trendColor}`}>
+        <div suppressHydrationWarning className={`flex items-center gap-2 text-lg font-mono font-bold ${trendColor}`}>
           <TrendIcon className="w-5 h-5" />
           {forecast.expectedTrend}
         </div>
