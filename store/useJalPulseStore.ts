@@ -28,8 +28,12 @@ interface JalPulseState {
   // Map Explorer specific state
   stationSearch: string;
   stationFilter: StationFilterType;
+  mapLayerType: 'SATELLITE' | 'LIGHT' | 'DARK';
+  mapAlertFilter: 'ALL' | 'RED_ALERT' | 'MODERATE' | 'LOW_ALERT';
   setStationSearch: (search: string) => void;
   setStationFilter: (filter: StationFilterType) => void;
+  setMapLayerType: (layer: 'SATELLITE' | 'LIGHT' | 'DARK') => void;
+  setMapAlertFilter: (filter: 'ALL' | 'RED_ALERT' | 'MODERATE' | 'LOW_ALERT') => void;
   
   // Digital Twin specific state
   digitalTwinMode: DigitalTwinMode;
@@ -78,6 +82,8 @@ export const useJalPulseStore = create<JalPulseState>((set) => ({
   
   stationSearch: '',
   stationFilter: 'ALL',
+  mapLayerType: 'SATELLITE',
+  mapAlertFilter: 'ALL',
   
   digitalTwinMode: 'OVERVIEW',
   showLabels: true,
@@ -142,6 +148,8 @@ export const useJalPulseStore = create<JalPulseState>((set) => ({
   
   setStationSearch: (search) => set({ stationSearch: search }),
   setStationFilter: (filter) => set({ stationFilter: filter }),
+  setMapLayerType: (layer) => set({ mapLayerType: layer }),
+  setMapAlertFilter: (filter) => set({ mapAlertFilter: filter }),
   
   setDigitalTwinMode: (mode) => set({ digitalTwinMode: mode }),
   setShowLabels: (show) => set({ showLabels: show }),

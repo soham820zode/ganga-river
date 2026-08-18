@@ -163,7 +163,7 @@
     box-shadow: 0 0 20px rgba(225, 29, 72, 0.12), inset 0 0 15px rgba(225, 29, 72, 0.02);
   }
 
-  /* ─── Pulse animations ─── */
+  /* ─── Pulse animations & Radar effects ─── */
   @keyframes pulse-glow {
     0%, 100% { opacity: 1; box-shadow: 0 0 10px rgba(2, 132, 199, 0.15); }
     50% { opacity: 0.85; box-shadow: 0 0 20px rgba(2, 132, 199, 0.3); }
@@ -181,4 +181,97 @@
   .animate-float {
     animation: float 3s ease-in-out infinite;
   }
+
+  /* ─── Wave & Oxygen Flow Animations ─── */
+  @keyframes waveFlow1 {
+    0% { transform: translateX(0) translateZ(0) scaleY(1); }
+    50% { transform: translateX(-25%) translateZ(0) scaleY(1.15); }
+    100% { transform: translateX(-50%) translateZ(0) scaleY(1); }
+  }
+
+  @keyframes waveFlow2 {
+    0% { transform: translateX(0) translateZ(0) scaleY(1.1); }
+    50% { transform: translateX(25%) translateZ(0) scaleY(0.9); }
+    100% { transform: translateX(50%) translateZ(0) scaleY(1.1); }
+  }
+
+  .animate-wave-1 {
+    animation: waveFlow1 6s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
+  }
+
+  .animate-wave-2 {
+    animation: waveFlow2 9s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
+  }
+
+  /* ─── Rising Oxygen Bubbles ─── */
+  @keyframes bubbleRise {
+    0% {
+      transform: translateY(100%) scale(0.6);
+      opacity: 0;
+    }
+    20% {
+      opacity: 0.8;
+    }
+    80% {
+      opacity: 0.9;
+    }
+    100% {
+      transform: translateY(-20%) scale(1.15);
+      opacity: 0;
+    }
+  }
+
+  .animate-bubble {
+    animation: bubbleRise 3.5s ease-in infinite;
+  }
+
+  /* ─── Sonar Radar Ping Ring ─── */
+  @keyframes radarPing {
+    0% {
+      transform: scale(0.8);
+      opacity: 0.9;
+    }
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      transform: scale(2.8);
+      opacity: 0;
+    }
+  }
+
+  .animate-radar-ping {
+    animation: radarPing 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  @keyframes radarPingDelayed {
+    0% {
+      transform: scale(0.8);
+      opacity: 0.9;
+    }
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      transform: scale(3.5);
+      opacity: 0;
+    }
+  }
+
+  .animate-radar-ping-delayed {
+    animation: radarPingDelayed 2.2s cubic-bezier(0, 0, 0.2, 1) 0.8s infinite;
+  }
+
+  /* ─── Shimmer Gradient Fill ─── */
+  @keyframes shimmerMove {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  .animate-shimmer {
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+    background-size: 200% 100%;
+    animation: shimmerMove 2.5s infinite;
+  }
 }
+

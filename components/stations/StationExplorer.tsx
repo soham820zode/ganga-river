@@ -1,9 +1,9 @@
 "use client";
 import React from 'react';
 import { Search, MapPin, X } from 'lucide-react';
-import { StatusBadge } from '../ui/StatusBadge';
 import { MOCK_STATIONS } from '../../config/stations';
 import { useJalPulseStore, StationFilterType } from '../../store/useJalPulseStore';
+import { useSimulation } from '../../hooks/useSimulation';
 import { StationPreview } from './StationPreview';
 
 const FilterChip = ({ 
@@ -19,7 +19,7 @@ const FilterChip = ({
 }) => (
   <button
     onClick={() => setStationFilter(type)}
-    className={`px-4 py-1.5 rounded-xl text-[10px] font-bold tracking-[0.12em] uppercase transition-all duration-200 whitespace-nowrap ${
+    className={`px-3.5 py-1.5 rounded-xl text-[10px] font-bold tracking-[0.12em] uppercase transition-all duration-200 whitespace-nowrap ${
       currentFilter === type 
         ? 'bg-slate-900 text-white shadow-sm' 
         : 'bg-slate-100 hover:bg-slate-200/80 text-slate-600 border border-slate-200'
@@ -37,17 +37,26 @@ export function StationExplorer() {
   const stationFilter = useJalPulseStore(state => state.stationFilter);
   const setStationFilter = useJalPulseStore(state => state.setStationFilter);
 
+  const { snapshot } = useSimulation();
+
   const filteredStations = MOCK_STATIONS.filter(station => {
+    const liveStation = snapshot.stations[station.id];
+    const liveStatus = liveStation?.status || 'NORMAL';
+    const doVal = liveStation?.readings['DO']?.value;
+    const isRed = liveStatus === 'CRITICAL' || (doVal !== undefined && doVal < 4.0);
+    const isWarn = !isRed && (liveStatus === 'WARNING' || (doVal !== undefined && doVal < 5.5));
+    const effectiveStatus = isRed ? 'CRITICAL' : isWarn ? 'WARNING' : 'NORMAL';
+
     const matchesSearch = station.name.toLowerCase().includes(stationSearch.toLowerCase()) || 
                           station.region.toLowerCase().includes(stationSearch.toLowerCase());
-    const matchesFilter = stationFilter === 'ALL' || station.status === stationFilter;
+    const matchesFilter = stationFilter === 'ALL' || effectiveStatus === stationFilter;
     return matchesSearch && matchesFilter;
   });
 
   const selectedStation = MOCK_STATIONS.find(s => s.id === selectedStationId);
 
   return (
-    <div className="w-full h-full flex flex-col bg-white/85 backdrop-blur-2xl border-l border-slate-200/80">
+    <div className="w-full h-full flex flex-col bg-white/90 backdrop-blur-2xl border-l border-slate-200/80">
       
       {/* Header & Search */}
       <div className="p-5 border-b border-slate-200 flex-shrink-0">
@@ -55,7 +64,7 @@ export function StationExplorer() {
           Monitoring Network
         </h2>
         <p className="text-[9px] text-slate-400 font-mono tracking-wider mb-4 font-bold">
-          DATA SOURCE: DEMO STREAM
+          LIVE SATELLITE & SENSOR CORRIDOR
         </p>
         
         <div className="relative">
@@ -79,9 +88,9 @@ export function StationExplorer() {
         
         <div className="flex gap-2 mt-4 overflow-x-auto pb-2 custom-scrollbar">
           <FilterChip currentFilter={stationFilter} setStationFilter={setStationFilter} type="ALL" label={`All (${MOCK_STATIONS.length})`} />
-          <FilterChip currentFilter={stationFilter} setStationFilter={setStationFilter} type="NORMAL" label="Normal" />
-          <FilterChip currentFilter={stationFilter} setStationFilter={setStationFilter} type="WARNING" label="Warning" />
-          <FilterChip currentFilter={stationFilter} setStationFilter={setStationFilter} type="CRITICAL" label="Critical" />
+          <FilterChip currentFilter={stationFilter} setStationFilter={setStationFilter} type="NORMAL" label="Safe / Low" />
+          <FilterChip currentFilter={stationFilter} setStationFilter={setStationFilter} type="WARNING" label="Moderate" />
+          <FilterChip currentFilter={stationFilter} setStationFilter={setStationFilter} type="CRITICAL" label="Red Alert" />
         </div>
       </div>
 
@@ -92,32 +101,54 @@ export function StationExplorer() {
             No stations found matching your criteria.
           </div>
         ) : (
-          filteredStations.map(station => (
-            <button
-              key={station.id}
-              onClick={() => setSelectedStation(station.id)}
-              className={`w-full text-left p-4 rounded-2xl border transition-all duration-200 ${
-                selectedStationId === station.id 
-                  ? 'bg-sky-50/90 border-sky-300 shadow-sm ring-1 ring-sky-500/20' 
-                  : 'bg-white hover:bg-slate-50 border-slate-200/80 shadow-sm'
-              }`}
-            >
-              <div className="flex items-start justify-between mb-2">
-                <div>
-                  <h3 className={`font-semibold text-sm ${selectedStationId === station.id ? 'text-sky-700' : 'text-slate-900'}`}>
-                    {station.name}
-                  </h3>
-                  <p className="text-[10px] text-slate-500 flex items-center gap-1 mt-1">
-                    <MapPin className="w-3 h-3 text-slate-400" /> {station.region}
-                  </p>
+          filteredStations.map(station => {
+            const liveStation = snapshot.stations[station.id];
+            const liveStatus = liveStation?.status || 'NORMAL';
+            const doVal = liveStation?.readings['DO']?.value;
+            const bodVal = liveStation?.readings['BOD']?.value;
+            const isRed = liveStatus === 'CRITICAL' || (doVal !== undefined && doVal < 4.0);
+            const isWarn = !isRed && (liveStatus === 'WARNING' || (doVal !== undefined && doVal < 5.5));
+
+            return (
+              <button
+                key={station.id}
+                onClick={() => setSelectedStation(station.id)}
+                className={`w-full text-left p-4 rounded-2xl border transition-all duration-200 ${
+                  selectedStationId === station.id 
+                    ? 'bg-sky-50/90 border-sky-300 shadow-md ring-2 ring-sky-500/20' 
+                    : isRed
+                    ? 'bg-rose-50/40 hover:bg-rose-50/80 border-rose-200/90 shadow-sm'
+                    : 'bg-white hover:bg-slate-50 border-slate-200/80 shadow-sm'
+                }`}
+              >
+                <div className="flex items-start justify-between mb-2">
+                  <div>
+                    <h3 className={`font-semibold text-sm ${selectedStationId === station.id ? 'text-sky-700' : 'text-slate-900'}`}>
+                      {station.name}
+                    </h3>
+                    <p className="text-[10px] text-slate-500 flex items-center gap-1 mt-1">
+                      <MapPin className="w-3 h-3 text-slate-400" /> {station.region}
+                    </p>
+                  </div>
+                  
+                  {/* Real-time Alert Badge */}
+                  <span className={`px-2.5 py-1 rounded-xl text-[9px] font-bold uppercase tracking-wider ${
+                    isRed ? 'bg-rose-100 text-rose-800 border border-rose-300 animate-pulse' :
+                    isWarn ? 'bg-amber-100 text-amber-800 border border-amber-300' :
+                    'bg-emerald-100 text-emerald-800 border border-emerald-300'
+                  }`}>
+                    {isRed ? '🔴 RED ALERT' : isWarn ? '🟡 WARNING' : '🟢 SAFE'}
+                  </span>
                 </div>
-                <StatusBadge status={station.status} />
-              </div>
-              <div className="text-[9px] text-slate-400 uppercase tracking-[0.15em] font-mono font-medium">
-                {station.lastUpdated}
-              </div>
-            </button>
-          ))
+
+                {/* DO & BOD Quick telemetry */}
+                <div className="flex items-center justify-between text-[10px] text-slate-500 font-mono pt-2 border-t border-slate-100 mt-2">
+                  <span>DO: <strong className={isRed ? 'text-rose-600' : 'text-slate-800'}>{doVal ? `${doVal.toFixed(1)} mg/L` : '—'}</strong></span>
+                  <span>OB (BOD): <strong className={bodVal && bodVal > 4 ? 'text-rose-600' : 'text-slate-800'}>{bodVal ? `${bodVal.toFixed(1)} mg/L` : '—'}</strong></span>
+                </div>
+              </button>
+            );
+          })
         )}
       </div>
 
